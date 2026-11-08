@@ -27,6 +27,7 @@ These apply whichever provider is chosen:
 
 ## Guidelines
 
+- **Follow responsive design.** Every page must work on phone and desktop widths, without horizontal scrolling, using Tailwind CSS's responsive utilities with a mobile-first approach.
 - **Keep safety rules in one place.** Exercise and nutrition limits live in plain TypeScript modules with no UI, database or AI dependencies, so every feature uses the same rules and they are easy to test.
 - **Don't invent limit values.** Code uses only values the project owner has approved, from reliable health sources (see the [roadmap](roadmap.md)).
 - **Keep tracking separate from the limits.** Checking off exercises and meals must not depend on the safety module, while AI output and targets must go through it.

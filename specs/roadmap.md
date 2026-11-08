@@ -1,6 +1,6 @@
 # Roadmap
 
-High-level implementation order, in very small phases. Each phase should leave the site working. See [mission.md](mission.md) for the safety principles and [tech-stack.md](tech-stack.md) for technology choices.
+High-level implementation order, in very small phases. Each phase should leave the site working, and any page it adds or changes must follow responsive design and be checked at phone and desktop widths. See [mission.md](mission.md) for the safety principles and [tech-stack.md](tech-stack.md) for technology choices.
 
 ## Required decisions
 
@@ -122,7 +122,7 @@ Completed under the earlier project name.
 ## Phase 16: Polish
 
 - [ ] Review all wording, plans and menus against the safety principles.
-- [ ] Check the layout on phones and desktop browsers.
+- [ ] Do a final check of all pages on phones and desktop browsers.
 - [ ] Document how to run the site locally.
 
 ## Possible later work

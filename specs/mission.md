@@ -47,5 +47,6 @@ These rules take priority over every other goal of the product.
 
 - A person can sign up, enter their details and goal, and get a personal plan and menu.
 - A logged-in person can immediately see what to do and eat today, and track it.
+- The site is easy to use on both phones and desktop computers.
 - People can keep following their plan week after week as it gets harder.
 - No plan, menu or target shown to anyone ever goes past an approved limit.
