@@ -58,11 +58,11 @@ The project owner runs the site from a fresh database, using a modern browser. E
 
 ### Milestone 1: accounts (Phases 2–4)
 
-- [ ] Sign-up works with a new email, and shows the no-reset notice.
-- [ ] A duplicate email and invalid details show clear messages.
-- [ ] Log out works, and `/profile` then sends the visitor to the log-in page.
-- [ ] Log in works, and a wrong password shows a clear message that doesn't reveal which detail was wrong.
-- [ ] The accounts pages don't scroll sideways at either width.
+- [x] Sign-up works with a new email, and shows the no-reset notice.
+- [x] A duplicate email and invalid details show clear messages.
+- [x] Log out works, and `/profile` then sends the visitor to the log-in page.
+- [x] Log in works, and a wrong password shows a clear message that doesn't reveal which detail was wrong.
+- [x] The accounts pages don't scroll sideways at either width.
 
 ### Milestone 2: profile and goal (Phase 5)
 
@@ -123,7 +123,9 @@ The implementation fills in this list during Phase 8.
 
 ## Results
 
-To be recorded when the checks are run, including the date, the outcome of each automated and connection check, and the project owner's approval for each milestone.
+To be completed when the final checks are run, including the outcome of each automated and connection check.
+
+- **Milestone 1:** on 2026-11-08, the project owner checked all nine walkthrough items at phone and desktop widths and approved the result. Clean install, lint, type check, tests and a production build with no `.env` or database all passed.
 
 ## Merge
 

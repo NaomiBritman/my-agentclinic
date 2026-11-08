@@ -17,7 +17,7 @@ All work happens on the `mvp` branch. After every phase, run lint, type check an
 
 1. Install Better Auth and configure email and password login with its Drizzle adapter.
 2. Add `.env.example` with empty setting names, a comment on how to create the secret, and a `.gitignore` exception for that file. Read the secret and the `127.0.0.1` base URL from `.env`.
-3. Add the Better Auth tables to the schema in a new migration, and remove `app_meta` in that migration.
+3. Add the Better Auth tables to the schema in a new migration, and remove `app_meta` in a second one, because Drizzle would otherwise stop to ask whether a table was renamed.
 4. Create the shared wording module with the text in [requirements.md](requirements.md).
 5. Add a responsive `/sign-up` page with server-side validation, clear errors and the no-reset notice.
 6. Send the person to `/profile` after sign-up. That page can be a login-protected placeholder until Phase 5.

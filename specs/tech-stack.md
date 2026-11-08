@@ -6,9 +6,9 @@
 | --- | --- | --- |
 | Language | TypeScript | Types help keep plan and safety logic correct |
 | Framework | Next.js (App Router) with React | One app for pages and server logic |
-| Database | SQLite | Simple local setup with no separate database server |
+| Database | SQLite, through `better-sqlite3` | Simple local setup with no separate database server |
 | Data access | Drizzle ORM | Typed queries and schema migrations; supports moving to Postgres later |
-| Accounts | Email and password, with hashed passwords and server-side session checks | Fits a local site with no outside services; the library is chosen when Phase 3 starts |
+| Accounts | Better Auth, with email and password, hashed passwords and server-side session checks | Fits a local site with no outside services, and has a Drizzle adapter |
 | AI agent | **Provider not decided** | Required decision before Phase 10 (see the [roadmap](roadmap.md)) |
 | Styling | Tailwind CSS | Fast to build a responsive interface |
 | Tests | Vitest | Fast TypeScript testing, mainly for plan and safety rules |
@@ -44,4 +44,4 @@ These apply whichever provider is chosen:
 
 ## Current repo state
 
-The repo has a Next.js app with Tailwind CSS, ESLint and Vitest, and the app and package use the name My Fit Plan. The GitHub repository and local folder are still called `my-agentclinic`.
+The repo has a Next.js app with Tailwind CSS, ESLint and Vitest, a SQLite database with Drizzle migrations, and email and password accounts. The app and package use the name My Fit Plan. The GitHub repository and local folder are still called `my-agentclinic`.

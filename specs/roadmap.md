@@ -30,20 +30,20 @@ Completed under the earlier project name.
 
 ## Phase 2: Database
 
-- [ ] Add SQLite and Drizzle with a first migration.
-- [ ] Keep the database file out of Git.
+- [x] Add SQLite and Drizzle with a first migration.
+- [x] Keep the database file out of Git.
 
 ## Phase 3: Sign-up
 
-- [ ] Choose an account library.
-- [ ] Add a sign-up form with server-side validation.
-- [ ] Store accounts with hashed passwords.
+- [x] Choose an account library.
+- [x] Add a sign-up form with server-side validation.
+- [x] Store accounts with hashed passwords.
 
 ## Phase 4: Log in and log out
 
-- [ ] Add log in and log out.
-- [ ] Require login for personal pages.
-- [ ] Add tests showing that one person can't reach another person's data.
+- [x] Add log in and log out.
+- [x] Require login for personal pages.
+- [x] Add tests showing that one person can't reach another person's data.
 
 ## Phase 5: Profile and goal
 
