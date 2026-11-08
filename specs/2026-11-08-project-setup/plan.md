@@ -10,7 +10,8 @@ See [requirements.md](requirements.md) for scope and decisions, and [validation.
 4. Name the package `fitness-nutrition-tracker`, and regenerate `package-lock.json`.
 5. Merge `.gitignore` so it keeps the current entries and adds the Next.js ones, such as `.next/` and `next-env.d.ts`.
 6. Add a `typecheck` script that runs `tsc --noEmit`.
-7. Confirm that the app starts with `npm run dev`.
+7. Limit the `dev` script to `127.0.0.1`.
+8. Confirm that the app starts with `npm run dev`.
 
 ## 2. Add the layout and notice
 

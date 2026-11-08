@@ -23,6 +23,7 @@ The repo currently has a `package.json` named `naomibritman`, a default `tsconfi
 - A not-medical-advice notice in the shared layout footer.
 - Vitest with one passing test.
 - Scripts for `dev`, `build`, `start`, `lint`, `typecheck` and `test`.
+- A `dev` script limited to `127.0.0.1`, so the dev server can't be reached from the local network.
 - Ticked Phase 0 items in `specs/roadmap.md`.
 
 ### Out of scope
@@ -55,6 +56,7 @@ The repo currently has a `package.json` named `naomibritman`, a default `tsconfi
 | Site text | One small module, `src/lib/site.ts` | The layout, page and test all use the same wording |
 | First test | Plain unit test of the site text | Needs no browser test libraries, while still protecting the notice |
 | Linting | ESLint, as set up by `create-next-app` | Comes with the Next.js scaffold and supports merge checks |
+| Dev server address | `127.0.0.1` only | The site has no accounts, so other devices must not reach it once it holds personal data |
 
 ## Constraints
 

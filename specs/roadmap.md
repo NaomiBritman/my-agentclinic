@@ -11,10 +11,10 @@ These block the phases named below. Each cap value must come from reliable healt
 
 ## Phase 0: Project setup
 
-- [ ] Replace the placeholder scaffold with a Next.js and TypeScript app.
-- [ ] Add Tailwind CSS and a basic page layout.
-- [ ] Add a home page with the site name and a not-medical-advice notice.
-- [ ] Add Vitest with one passing test.
+- [x] Replace the placeholder scaffold with a Next.js and TypeScript app.
+- [x] Add Tailwind CSS and a basic page layout.
+- [x] Add a home page with the site name and a not-medical-advice notice.
+- [x] Add Vitest with one passing test.
 
 ## Phase 1: Daily checklist
 
