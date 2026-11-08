@@ -66,12 +66,12 @@ The project owner runs the site from a fresh database, using a modern browser. E
 
 ### Milestone 2: profile and goal (Phase 5)
 
-- [ ] A new account goes to `/profile`, and `/today` sends it back there until a profile is saved.
-- [ ] Entering an age under 18 saves nothing, and shows the exact under-18 message.
-- [ ] Age 18 with valid details saves, and all details can be edited and still appear after reloading.
-- [ ] The form uses centimetres and kilograms, and it suggests no healthy range or target.
-- [ ] The goal note appears, and choosing a goal doesn't suggest that a plan exists.
-- [ ] The page doesn't scroll sideways at either width.
+- [x] A new account goes to `/profile`, and `/today` sends it back there until a profile is saved.
+- [x] Entering an age under 18 saves nothing, and shows the exact under-18 message.
+- [x] Age 18 with valid details saves, and all details can be edited and still appear after reloading.
+- [x] The form uses centimetres and kilograms, and it suggests no healthy range or target.
+- [x] The goal note appears, and choosing a goal doesn't suggest that a plan exists.
+- [x] The page doesn't scroll sideways at either width.
 
 ### Milestone 3: full journey (Phases 6–8)
 
@@ -118,6 +118,7 @@ The implementation fills in this list during Phase 8.
 - [ ] No goal changes what the site shows, and no eligibility rule was invented.
 - [ ] Tracking code doesn't depend on a safety module.
 - [ ] Code review finds no logging of personal data, passwords or session tokens.
+- [ ] `logging.serverFunctions` stays off in `next.config.ts`, and the `npm run dev` terminal shows no form values during the walkthrough.
 - [ ] Personal data reads and writes all use the account from the server session.
 - [ ] The not-medical-advice notice is unchanged.
 
@@ -126,6 +127,7 @@ The implementation fills in this list during Phase 8.
 To be completed when the final checks are run, including the outcome of each automated and connection check.
 
 - **Milestone 1:** on 2026-11-08, the project owner checked all nine walkthrough items at phone and desktop widths and approved the result. Clean install, lint, type check, tests and a production build with no `.env` or database all passed.
+- **Milestone 2:** on 2026-11-08, the project owner checked all twelve walkthrough items at phone and desktop widths and approved the result. Clean install, lint, type check, tests and a production build with no `.env` or database all passed.
 
 ## Merge
 

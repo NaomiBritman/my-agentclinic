@@ -41,7 +41,7 @@ All work happens on the `mvp` branch. After every phase, run lint, type check an
 3. Add data functions that take the account ID from the session helper.
 4. Build the responsive `/profile` form, including error messages, kept input, the goal note and the under-18 message.
 5. Allow editing, with new values replacing old ones.
-6. Add a server helper that sends a person without a saved profile to `/profile`.
+6. Add a server helper that sends a person without a saved profile to `/profile`, and a minimal `/today` page that uses it, so that Milestone 2 can check the adult requirement. Phase 6 fills in that page.
 7. Extend the two-account tests to profile data.
 
 **Milestone 2:** run the automated checks and the Milestone 2 items in [validation.md](validation.md), then stop for the project owner's check.

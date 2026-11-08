@@ -23,17 +23,42 @@ export const WORDING = {
     logInFailed: "That email and password don't match an account.",
   },
   navigation: {
+    today: "Today",
     profile: "Profile",
   },
   profile: {
     heading: "Your profile",
-    placeholder: "Your profile details will go here.",
+    ageLabel: "Age",
+    heightLabel: "Height (cm)",
+    weightLabel: "Weight (kg)",
+    fitnessLevelLabel: "Fitness level",
+    goalLabel: "Goal",
+    choose: "Choose one",
+    fitnessLevels: {
+      beginner: "Beginner",
+      intermediate: "Intermediate",
+      experienced: "Experienced",
+    },
+    goals: {
+      "weight-loss": "Weight loss",
+      toning: "Toning",
+      "muscle-building": "Muscle building",
+    },
+    saveButton: "Save",
+    saved: "Your profile is saved.",
+    ageInvalid: "Enter your age as a whole number.",
+    heightInvalid: "Enter your height in centimetres, as a number above zero.",
+    weightInvalid: "Enter your weight in kilograms, as a number above zero.",
+    fitnessLevelInvalid: "Choose a fitness level.",
+    goalInvalid: "Choose a goal.",
     underAge:
       "My Fit Plan is for adults 18 or older, so this profile can't be saved.",
     goalNote:
       "Saving a goal doesn't create a plan. Personal plans aren't available yet.",
   },
   today: {
+    heading: "Today",
+    placeholder: "Today's lists will go here.",
     exerciseLabel: "Sample list, not a personal plan.",
     menuLabel: "Sample menu, not a personal plan.",
     allExercisesTicked: "Everything on today's list is ticked.",

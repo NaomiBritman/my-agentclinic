@@ -1,4 +1,4 @@
-import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 // The user, session, account and verification tables follow the shape that
 // Better Auth expects. Only email and password login uses them.
@@ -67,3 +67,16 @@ export const verification = sqliteTable(
   },
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
+
+// One profile per account. Saving replaces the old values and keeps no history.
+export const profile = sqliteTable("profile", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => user.id, { onDelete: "cascade" }),
+  age: integer("age").notNull(),
+  heightCm: real("height_cm").notNull(),
+  weightKg: real("weight_kg").notNull(),
+  fitnessLevel: text("fitness_level").notNull(),
+  goal: text("goal").notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
+});

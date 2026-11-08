@@ -27,6 +27,9 @@ async function AccountNavigation() {
 
   return (
     <>
+      <Link href="/today" className={linkClasses}>
+        {WORDING.navigation.today}
+      </Link>
       <Link href="/profile" className={linkClasses}>
         {WORDING.navigation.profile}
       </Link>

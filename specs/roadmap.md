@@ -47,10 +47,10 @@ Completed under the earlier project name.
 
 ## Phase 5: Profile and goal
 
-- [ ] Add a profile form for age, height, weight and fitness level.
-- [ ] Validate profile input and require the person to be 18 or older.
-- [ ] Let the person choose a goal, such as weight loss, toning or muscle building.
-- [ ] Save the profile and goal, and allow edits.
+- [x] Add a profile form for age, height, weight and fitness level.
+- [x] Validate profile input and require the person to be 18 or older.
+- [x] Let the person choose a goal, such as weight loss, toning or muscle building.
+- [x] Save the profile and goal, and allow edits.
 
 ## Phase 6: Daily exercise tracking
 

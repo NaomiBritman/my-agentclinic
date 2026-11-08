@@ -6,6 +6,7 @@ import { getDatabase } from "@/db/database";
 
 import { findAccount, type Account } from "./accounts";
 import { createAuth, type Auth } from "./auth";
+import { getProfile } from "./profiles";
 
 let auth: Auth | undefined;
 
@@ -41,6 +42,13 @@ export async function getCurrentAccount(): Promise<Account | null> {
 export async function requireAccount(): Promise<Account> {
   const account = await getCurrentAccount();
   if (!account) redirect("/log-in");
+  return account;
+}
+
+/** The logged-in account. Sends anyone without a saved profile to the form. */
+export async function requireAccountWithProfile(): Promise<Account> {
+  const account = await requireAccount();
+  if (!getProfile(getDatabase(), account.id)) redirect("/profile");
   return account;
 }
 
