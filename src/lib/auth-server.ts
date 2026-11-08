@@ -54,5 +54,5 @@ export async function requireAccountWithProfile(): Promise<Account> {
 
 /** Sends anyone already logged in away from the sign-up and log-in pages. */
 export async function redirectIfLoggedIn(): Promise<void> {
-  if (await getCurrentAccount()) redirect("/profile");
+  if (await getCurrentAccount()) redirect("/today");
 }

@@ -24,6 +24,7 @@ export const WORDING = {
   },
   navigation: {
     today: "Today",
+    history: "History",
     profile: "Profile",
   },
   profile: {
@@ -58,15 +59,23 @@ export const WORDING = {
   },
   today: {
     heading: "Today",
-    placeholder: "Today's lists will go here.",
+    exercisesHeading: "Exercises",
     exerciseLabel: "Sample list, not a personal plan.",
-    menuLabel: "Sample menu, not a personal plan.",
     allExercisesTicked: "Everything on today's list is ticked.",
     someExercisesUnticked: "Some items on today's list aren't ticked.",
+    menuHeading: "Menu",
+    menuLabel: "Sample menu, not a personal plan.",
     noteLabel: "Anything else you ate (optional)",
     noteHelp: "This is only a note for you.",
+    noteTooLong: "This note is too long, so it wasn't saved.",
+    noteSaveButton: "Save note",
+    noteSaved: "Your note is saved.",
   },
   history: {
+    heading: "History",
     empty: "No past days to show yet.",
+    exercisesHeading: "Exercises ticked",
+    mealsHeading: "Meals marked as eaten",
+    noteHeading: "Note",
   },
 } as const;

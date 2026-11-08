@@ -1,4 +1,11 @@
-import { index, integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {
+  index,
+  integer,
+  primaryKey,
+  real,
+  sqliteTable,
+  text,
+} from "drizzle-orm/sqlite-core";
 
 // The user, session, account and verification tables follow the shape that
 // Better Auth expects. Only email and password login uses them.
@@ -80,3 +87,35 @@ export const profile = sqliteTable("profile", {
   goal: text("goal").notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
 });
+
+// Dates are this computer's local date, as YYYY-MM-DD. Each mark keeps the
+// item's name, so history stays correct if the lists change later.
+export const trackingMark = sqliteTable(
+  "tracking_mark",
+  {
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    date: text("date").notNull(),
+    itemType: text("item_type").notNull(),
+    itemKey: text("item_key").notNull(),
+    itemName: text("item_name").notNull(),
+  },
+  (table) => [
+    primaryKey({
+      columns: [table.userId, table.date, table.itemType, table.itemKey],
+    }),
+  ],
+);
+
+export const dayNote = sqliteTable(
+  "day_note",
+  {
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    date: text("date").notNull(),
+    text: text("text").notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.date] })],
+);

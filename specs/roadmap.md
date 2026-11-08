@@ -54,21 +54,21 @@ Completed under the earlier project name.
 
 ## Phase 6: Daily exercise tracking
 
-- [ ] Show a sample exercise list with names only, no amounts, clearly labeled as a sample.
-- [ ] Let the person tick off exercises, and save this to their account.
-- [ ] Show whether everything on today's list is complete.
+- [x] Show a sample exercise list with names only, no amounts, clearly labeled as a sample.
+- [x] Let the person tick off exercises, and save this to their account.
+- [x] Show whether everything on today's list is complete.
 
 ## Phase 7: Daily menu tracking
 
-- [ ] Show a sample menu with meal names only, no amounts, clearly labeled as a sample.
-- [ ] Let the person mark meals as eaten or not, and save this to their account.
-- [ ] Let the person note anything else they ate, without counting or scoring it.
-- [ ] Keep the wording neutral, with no judgments on intake.
+- [x] Show a sample menu with meal names only, no amounts, clearly labeled as a sample.
+- [x] Let the person mark meals as eaten or not, and save this to their account.
+- [x] Let the person note anything else they ate, without counting or scoring it.
+- [x] Keep the wording neutral, with no judgments on intake.
 
 ## Phase 8: Tracking history
 
-- [ ] Show a simple history of past days.
-- [ ] Review the wording to make sure it doesn't reward eating less or training more.
+- [x] Show a simple history of past days.
+- [x] Review the wording to make sure it doesn't reward eating less or training more.
 
 ## Phase 9: Exercise and goal limits
 

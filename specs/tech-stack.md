@@ -44,4 +44,4 @@ These apply whichever provider is chosen:
 
 ## Current repo state
 
-The repo has a Next.js app with Tailwind CSS, ESLint and Vitest, a SQLite database with Drizzle migrations, and email and password accounts. The app and package use the name My Fit Plan. The GitHub repository and local folder are still called `my-agentclinic`.
+The repo has a Next.js app with Tailwind CSS, ESLint and Vitest, a SQLite database with Drizzle migrations, email and password accounts, a profile and goal, and daily tracking of sample lists with a read-only history. The app and package use the name My Fit Plan. The GitHub repository and local folder are still called `my-agentclinic`.

@@ -43,7 +43,7 @@ export async function logInAction(
   const result = await logIn(getAuth(), credentials, await headers());
   if (!result.ok) return { message: result.message, email };
 
-  redirect("/profile");
+  redirect("/today");
 }
 
 export async function logOutAction(): Promise<void> {
