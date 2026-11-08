@@ -24,9 +24,9 @@ Completed under the earlier project name.
 
 ## Phase 1: Rename and local-only
 
-- [ ] Rename the package to `my-fit-plan`.
-- [ ] Change the site name to My Fit Plan and update the mission sentence.
-- [ ] Limit `npm run start` to `127.0.0.1`.
+- [x] Rename the package to `my-fit-plan`.
+- [x] Change the site name to My Fit Plan and update the mission sentence.
+- [x] Limit `npm run start` to `127.0.0.1`.
 
 ## Phase 2: Database
 

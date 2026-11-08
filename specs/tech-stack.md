@@ -38,10 +38,10 @@ These apply whichever provider is chosen:
 
 ## Hosting constraints
 
-- **Local only:** both `npm run dev` and `npm run start` must be limited to `127.0.0.1`. The `dev` script already is, and Phase 1 of the [roadmap](roadmap.md) limits `start`.
+- **Local only:** both `npm run dev` and `npm run start` are limited to `127.0.0.1`, and must stay that way.
 - **No public deployment for now:** having accounts doesn't make the site ready to go public. That would first need a security review and its own decision.
 - **Persistent disk:** SQLite stores its data in a file, so any later hosting needs a persistent disk, such as a VPS or a container with a mounted volume. Serverless platforms without persistent storage won't work unless the app moves to a hosted database first.
 
 ## Current repo state
 
-Phase 0 is complete: the repo has a Next.js app with Tailwind CSS, ESLint and Vitest. The app and package still use the old name until Phase 1 of the [roadmap](roadmap.md).
+The repo has a Next.js app with Tailwind CSS, ESLint and Vitest, and the app and package use the name My Fit Plan. The GitHub repository and local folder are still called `my-agentclinic`.
