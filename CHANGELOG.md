@@ -2,6 +2,15 @@
 
 ## 2026-11-08
 
+- Added a read-only history of past days, with no totals, scores or streaks.
+- Added a today page with sample exercises and meal slots to tick, and a free-text daily note that isn't counted or scored.
+- Added a test that scans site text for numbers, pressure and judgments, and the project owner approved the wording.
+- Added a profile and goal form, and required a saved adult profile (18 or older) for tracking pages.
+- Required height and weight to be positive numbers, with no invented health range.
+- Stopped dev server logs printing form values, such as a person's age and goal.
+- Added email and password accounts through Better Auth, with hashed passwords, log in and log out, and server-side login checks on personal pages.
+- Added a SQLite database with Drizzle migrations, and kept the database file and `.env` out of Git.
+- Added the feature spec for the MVP, covering Phases 2 to 8.
 - Renamed the app and package to My Fit Plan, and changed the home page to say the site is being built.
 - Limited the production server (`npm run start`) to `127.0.0.1`.
 - Added the feature spec for Phase 1 rename and local-only.
