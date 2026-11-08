@@ -2,6 +2,9 @@
 
 ## 2026-11-08
 
+- Renamed the app and package to My Fit Plan, and changed the home page to say the site is being built.
+- Limited the production server (`npm run start`) to `127.0.0.1`.
+- Added the feature spec for Phase 1 rename and local-only.
 - Added a `/changelog` skill that updates this file from the git history before merging.
 - Required responsive design on every page, checked at phone and desktop widths.
 - Renamed the project to My Fit Plan in the README and specs, and replanned it around accounts, profiles, an AI-built exercise plan and menu, and daily tracking.
