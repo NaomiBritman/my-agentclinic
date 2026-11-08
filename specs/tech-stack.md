@@ -10,6 +10,7 @@
 | Data access | Drizzle ORM | Typed queries and schema migrations; supports moving to Postgres later |
 | Styling | Tailwind CSS | Fast to build a responsive interface |
 | Tests | Vitest | Fast TypeScript testing, mainly for plan and safety rules |
+| Linting | ESLint | Comes with the Next.js scaffold and catches common code problems |
 
 ## Current scope
 
