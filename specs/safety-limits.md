@@ -44,18 +44,22 @@ These questions are used as written:
 - Have you been diagnosed with or treated for an eating disorder?
 - Do you have a medical condition, injury or doctor's restriction that affects exercise or eating?
 
-When a plan can't be offered, the site shows this message as written:
+When no plan can be offered for any goal, the site shows this message as written:
 
 > My Fit Plan can't create a plan for you. A health professional can help you find what suits you.
+
+For a BMI under 18.5, the weight loss goal shows this message as written, and other goals stay available unless another rule applies:
+
+> My Fit Plan can't create a weight loss plan for you. A health professional can help you find what suits you.
 
 An under-18 profile still can't be saved, and it keeps its existing wording. The answers to both questions are never sent to the AI provider.
 
 ## AI data rules (Phase 10)
 
-- **Test profiles only:** the Gemini free tier is used only with made-up test profiles.
-- **No real details yet:** no real person's details may be sent until the project owner chooses a paid tier or a local model.
-- **Told first:** the site says this before generating.
-- **Details that may be sent:** age, height, weight, fitness level, goal, allergies and dietary restrictions.
+- **Test profiles only:** generation uses only built-in made-up test profiles, and never a saved profile, until the project owner chooses a paid tier or a local model.
+- **Separate page:** generated plans appear on a separate test plans page, and `/today` daily tracking keeps using the sample lists.
+- **Told first:** before generating, the site shows this notice as written: "Test mode: this plan is created from a made-up sample profile. Your saved details are not sent."
+- **Details that may be sent:** the test profile's age, height, weight, fitness level, goal, allergies and dietary restrictions.
 
 The Gemini API Additional Terms (effective March 23, 2026) are the reason for this rule. They say "Do not submit sensitive, confidential, or personal information to the Unpaid Services".
 
@@ -63,6 +67,6 @@ The Gemini API Additional Terms (effective March 23, 2026) are the reason for th
 
 These don't change what is approved above.
 
-1. **Provider for real people:** a paid tier or a local model still needs to be chosen. Until then, no real person gets an AI plan or menu.
-2. **Keeping real details out (Phase 10):** the site can't tell whether a typed profile is real, so the Phase 10 spec must define how code stops real details being sent.
-3. **Test-only notice (Phase 10):** the text the site shows before generating still needs approved wording.
+1. **Provider for real people:** a paid tier or a local model still needs to be chosen. Until then, no real person gets a personal AI plan or menu.
+2. **Test plans page and eligibility (Phases 9 and 11):** it isn't decided whether a person told that no plan can be offered can still open the test plans page.
+3. **Tracking generated plans (Phases 12 and 15):** `/today` doesn't track generated plans, so holding progression after missed days and comparing tracked meals with targets wait for the provider for real people.

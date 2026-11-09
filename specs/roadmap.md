@@ -4,13 +4,13 @@ High-level implementation order, in very small phases. Each phase should leave t
 
 ## Required decisions
 
-The first four were approved by the project owner on 2026-11-09, and the values are in [safety-limits.md](safety-limits.md). Each limit value must come from reliable health sources that the project owner approves, and no values may be invented.
+The first four were approved by the project owner on 2026-11-09, and the values are in [safety-limits.md](safety-limits.md). Each limit value must come from reliable health sources or a labeled owner decision, approved by the project owner, and no values may be invented.
 
 - [x] **Exercise limits:** values and sources approved, including how much difficulty can rise each week. Unblocks Phase 9.
 - [x] **Goal eligibility:** rules and sources approved for when a goal such as weight loss can't be offered based on a person's details. Unblocks Phase 9.
 - [x] **AI provider:** chosen by the project owner, within the requirements in [tech-stack.md](tech-stack.md). Unblocks Phase 10.
 - [x] **Nutrition limits:** values and sources approved for menus and targets. Unblocks Phase 13.
-- [ ] **AI provider for real people:** a paid tier or a local model, chosen by the project owner. **No real person's details may be sent, and no real person gets an AI plan or menu, until this is done.**
+- [ ] **AI provider for real people:** a paid tier or a local model, chosen by the project owner. **No real person's details may be sent, and no real person gets a personal AI plan or menu, until this is done.**
 
 Phases 1–8 are complete, and Phases 9, 10 and 13 are unblocked. Phases 11, 12, 14 and 15 still depend on the phases before them, so no AI plan or menu can reach anyone until the limits covering it are implemented. Open items are listed in [safety-limits.md](safety-limits.md).
 
@@ -75,7 +75,7 @@ Completed under the earlier project name.
 
 **Unblocked: the exercise limits and goal eligibility are approved (see [safety-limits.md](safety-limits.md)).**
 
-- [ ] Add the two approved eligibility questions, and show the approved neutral message when no plan can be offered.
+- [ ] Add the two approved eligibility questions, and show the approved neutral messages when a plan or goal can't be offered.
 - [ ] Implement the approved exercise limits and goal eligibility rules as a standalone module.
 - [ ] Add tests showing that plans can't exceed the limits, and that ineligible goals are refused.
 
@@ -84,23 +84,23 @@ Completed under the earlier project name.
 **Unblocked: the AI provider is chosen (see [tech-stack.md](tech-stack.md)).**
 
 - [ ] Connect the Gemini API free tier on the server for made-up test profiles only, with the key kept only in `.env`.
-- [ ] Make sure code stops any real person's details being sent.
+- [ ] Add built-in made-up test profiles, and make sure generation never reads a saved profile.
 - [ ] Define the structured output format.
 - [ ] Add a check that shows nothing to the person when output is invalid.
-- [ ] Before generating, say that only made-up test profiles may be used, and what will be sent to Gemini.
+- [ ] Show the approved test mode notice before generating.
 
 ## Phase 11: AI exercise plan
 
 - [ ] Add an exercise catalog with difficulty levels, and allow plans to use only those exercises.
-- [ ] Generate a first week at moderate intensity from the profile and goal, and check it against the limits.
+- [ ] Generate a first week at moderate intensity from a built-in test profile and its goal, and check it against the limits.
 - [ ] Say neutrally when no plan can be produced within the limits.
-- [ ] Replace the sample exercise list with the generated plan.
+- [ ] Show the generated plan on a separate test plans page, and keep the sample exercise list on `/today`.
 
 ## Phase 12: Weekly progression
 
 - [ ] Generate the next week at a higher difficulty, within the limits.
-- [ ] Show the person's current week and how difficulty has changed.
-- [ ] Hold or adjust progression when the person has missed days.
+- [ ] Show the test profile's current week and how difficulty has changed on the test plans page.
+- [ ] Hold or adjust progression when the person has missed days. This waits for the AI provider for real people, because `/today` doesn't track generated plans.
 
 ## Phase 13: Nutrition limits
 
@@ -111,16 +111,16 @@ Completed under the earlier project name.
 
 ## Phase 14: AI menu
 
-- [ ] Ask for food allergies and dietary restrictions before generating any menu.
-- [ ] Generate a menu from the profile and goal, and check it against the limits and restrictions.
+- [ ] Give each built-in test profile made-up allergies and dietary restrictions, and use them when generating a menu.
+- [ ] Generate a menu from a built-in test profile and its goal, and check it against the limits and restrictions.
 - [ ] Say that AI menus can contain mistakes, and that people with allergies should check ingredients.
 - [ ] Say neutrally when no menu can be produced within the limits.
-- [ ] Replace the sample menu with the generated menu.
+- [ ] Show the generated menu on the test plans page, and keep the sample menu on `/today`.
 
 ## Phase 15: Menu targets
 
 - [ ] Show daily targets only from the approved limits, with no others.
-- [ ] Compare tracked meals with those targets in neutral wording.
+- [ ] Compare tracked meals with those targets in neutral wording. This waits for the AI provider for real people, because `/today` doesn't track generated plans.
 
 ## Phase 16: Polish
 

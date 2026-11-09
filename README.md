@@ -10,7 +10,8 @@ Project name: `my-fit-plan`.
 - An AI agent in the site builds a personal exercise plan and a menu according to the person's goal, such as weight loss, toning or muscle building.
 - Each day, the person tracks their exercises and marks which planned meals they ate.
 - The difficulty of the exercises goes up from week to week.
-- AI output must stay within the safety limits approved by the project owner, listed in [specs/safety-limits.md](specs/safety-limits.md), and no other numbers may be invented.
-- The AI provider is the Gemini API free tier, for made-up test profiles only. No real person's details may be sent until the owner chooses a paid tier or a local model, and the site must say so before generating.
+- AI output must stay within the safety limits approved by the project owner, listed in [specs/safety-limits.md](specs/safety-limits.md). Limits come from reliable health sources or a labeled owner decision, and no other numbers may be invented.
+- The AI provider is the Gemini API free tier. Until the owner chooses a paid tier or a local model, generation uses only built-in made-up test profiles and never a saved profile, and the site shows a test mode notice before generating.
+- Generated plans appear on a separate test plans page, and daily tracking on `/today` keeps using the sample lists.
 - Progress must be gradual; the site must not encourage extreme dieting or overtraining, and it is not medical advice.
 - The site stays local only for now, including `npm run start`, which must be limited to `127.0.0.1`.
