@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-09
+
+- Recorded the approved exercise, weekly progression, nutrition and goal eligibility limits in the specs, labeling each one's health source or owner decision, and marked Phases 9, 10 and 13 as unblocked. None of this is implemented yet.
+- Chose the Gemini API free tier as the AI provider in the specs, for built-in made-up test profiles only, so no real person's details or saved profile are sent until a paid tier or local model is chosen.
+- Specified that generated plans appear on a separate test plans page with a test mode notice, while `/today` keeps the sample lists.
+- Specified that the test plans page is hidden from anyone who answers yes to either eligibility question, and that weight loss test plans are hidden when BMI is under 18.5.
+
 ## 2026-11-08
 
 - Added a read-only history of past days, with no totals, scores or streaks.
