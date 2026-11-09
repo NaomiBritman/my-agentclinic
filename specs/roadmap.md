@@ -95,6 +95,7 @@ Completed under the earlier project name.
 - [ ] Generate a first week at moderate intensity from a built-in test profile and its goal, and check it against the limits.
 - [ ] Say neutrally when no plan can be produced within the limits.
 - [ ] Show the generated plan on a separate test plans page, and keep the sample exercise list on `/today`.
+- [ ] Hide the test plans page from anyone who answered yes to either eligibility question, and hide weight loss test plans when the person's BMI is under 18.5.
 
 ## Phase 12: Weekly progression
 

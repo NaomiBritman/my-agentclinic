@@ -52,6 +52,8 @@ For a BMI under 18.5, the weight loss goal shows this message as written, and ot
 
 > My Fit Plan can't create a weight loss plan for you. A health professional can help you find what suits you.
 
+The test plans page follows the same rules. It is hidden from anyone who answered yes to either question, and weight loss test plans are hidden when the person's BMI is under 18.5.
+
 An under-18 profile still can't be saved, and it keeps its existing wording. The answers to both questions are never sent to the AI provider.
 
 ## AI data rules (Phase 10)
@@ -68,5 +70,4 @@ The Gemini API Additional Terms (effective March 23, 2026) are the reason for th
 These don't change what is approved above.
 
 1. **Provider for real people:** a paid tier or a local model still needs to be chosen. Until then, no real person gets a personal AI plan or menu.
-2. **Test plans page and eligibility (Phases 9 and 11):** it isn't decided whether a person told that no plan can be offered can still open the test plans page.
-3. **Tracking generated plans (Phases 12 and 15):** `/today` doesn't track generated plans, so holding progression after missed days and comparing tracked meals with targets wait for the provider for real people.
+2. **Tracking generated plans (Phases 12 and 15):** `/today` doesn't track generated plans, so holding progression after missed days and comparing tracked meals with targets wait for the provider for real people.
