@@ -118,9 +118,14 @@ describe("the wording test catches planted examples", () => {
 test("health measure words appear only in the named list of unit labels", () => {
   expect(Object.keys(PLAN_UNITS)).toEqual([
     "aerobicMinutes",
+    "aerobicMinutesThisWeek",
     "strengthDays",
     "heightCm",
     "weightKg",
+    "minutes",
+    "setsOf",
+    "repetitions",
+    "calories",
   ]);
   for (const unit of Object.values(PLAN_UNITS)) expect(unit).not.toMatch(/\d/);
 });

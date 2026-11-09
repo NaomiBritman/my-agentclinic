@@ -50,6 +50,13 @@
       "when": 1794227413733,
       "tag": "0006_known_power_man",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1794234935279,
+      "tag": "0007_woozy_mach_iv",
+      "breakpoints": true
     }
   ]
 }

@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { eq } from "drizzle-orm";
 
 import type { AppDatabase } from "@/db/database";
-import { testPlan } from "@/db/schema";
+import { planLoadMark, testPlan } from "@/db/schema";
 
 import type { GeneratedPlan } from "./ai/generate-plan";
 import { parseExerciseMonth, parseMenu } from "./ai/plan-format";
@@ -83,4 +83,5 @@ export function saveActivePlan(
 /** Removes only this account's active plan. Past ticks stay in history. */
 export function removeActivePlan(db: AppDatabase, accountId: string): void {
   db.delete(testPlan).where(eq(testPlan.userId, accountId)).run();
+  db.delete(planLoadMark).where(eq(planLoadMark.userId, accountId)).run();
 }

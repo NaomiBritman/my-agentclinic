@@ -132,7 +132,7 @@ Supporting work:
 14. Pressing the button shows a loading state straight away, with a status message for screen readers, the button disabled and a second press ignored. The server also refuses a second build for the same account while one is running.
 15. A build is two Gemini requests: a four-week exercise plan and a seven-day menu. Both must pass every check, or nothing is saved or shown. The person then sees one of the neutral messages in requirement 24, and can press the button again.
 16. Each request stops after two minutes. Only an HTTP 503 from Gemini is retried, at most twice per build in total, with a 20-second wait before each retry, so a build sends at most four requests. Nothing else is retried, including timeouts and safety rule failures, which protects the free tier quota.
-17. After a build, the person goes to `/today`, and today becomes day one of the plan. Until the daily view exists at Milestone 4, the person goes to the plan's summary on `/test-plans` instead.
+17. After a build, the person goes to `/today`, and today becomes day one of the plan.
 18. An account has one active plan. Start over asks for confirmation, then removes the active plan. Past ticks stay in `/history`.
 
 ### AI connection (Phase 10)
@@ -175,9 +175,9 @@ Supporting work:
 42. The page doesn't add up ticked calories, compare intake with anything, or comment on what was or wasn't ticked.
 43. Ticks are saved per account and per day. Each tick stores the item's name, so `/history` stays correct, and the server checks that the item is on that day's plan.
 44. Only today can be ticked. The date comes from this computer's clock on the server, never from the browser.
-45. The person can browse any day of the plan, read-only, with previous and next links and a clear way back to today. Later days show amounts as they stand now, labeled as subject to change.
+45. The person can browse any day of the plan, read-only, with previous and next links, a link to each week and a clear way back to today. Later days show amounts assuming one step per week still to come, using ticks and marks so far, and are labeled as subject to change.
 46. After day 28, the page says the demonstration month has ended, and offers to build another. No more ticks can be added to that plan.
-47. The note for anything else eaten stays as it is, and is never counted or scored.
+47. The note for anything else eaten stays as it is, and is never counted or scored. It is always for today, so it doesn't appear while browsing another day.
 48. The existing exercise completion messages stay. Sample list ticks work as before when no plan is shown.
 
 ### Redesign
@@ -219,6 +219,13 @@ These are drafts for the project owner's wording sign-off:
 | Loading | Building the demonstration month. This can take a minute or two. |
 | No plan produced | No plan could be produced within the safety limits, so nothing is shown. A health professional can help you find what suits you. |
 | Estimate label | Gemini estimate |
+| Estimated total | Estimated total for the day |
+| Portions label | Portions |
+| Past days | This day can't be changed. |
+| Profile link | Go to your profile |
+| Another plan | Build another plan |
+| Plan day | Day / of / Week |
+| Navigation names for screen readers | Site / Plan days |
 | Menu notice | This menu isn't for real use. AI menus can contain mistakes, and people with allergies should check ingredients. |
 | Choose prompt | Choose a made-up profile to see a demonstration plan. |
 | Answer prompt | Answer the two questions on your profile to see demonstration plans. |

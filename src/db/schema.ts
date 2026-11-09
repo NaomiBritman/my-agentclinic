@@ -105,6 +105,24 @@ export const testPlan = sqliteTable("test_plan", {
   createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
 });
 
+// A loaded exercise marked as done with one to two extra repetitions, per day.
+export const planLoadMark = sqliteTable(
+  "plan_load_mark",
+  {
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    planId: text("plan_id").notNull(),
+    exerciseKey: text("exercise_key").notNull(),
+    date: text("date").notNull(),
+  },
+  (table) => [
+    primaryKey({
+      columns: [table.userId, table.planId, table.exerciseKey, table.date],
+    }),
+  ],
+);
+
 // Dates are this computer's local date, as YYYY-MM-DD. Each mark keeps the
 // item's name, so history stays correct if the lists change later.
 export const trackingMark = sqliteTable(

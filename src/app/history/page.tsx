@@ -21,8 +21,10 @@ function NameList({ heading, names }: { heading: string; names: string[] }) {
     <div className="mt-4">
       <h3 className="font-semibold text-chip-teal-ink">{heading}</h3>
       <ul className="mt-1 list-inside list-disc">
-        {names.map((name) => (
-          <li key={name}>{name}</li>
+        {names.map((name, index) => (
+          <li key={index} className="break-words">
+            {name}
+          </li>
         ))}
       </ul>
     </div>

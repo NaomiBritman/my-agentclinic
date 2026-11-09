@@ -69,7 +69,7 @@ export async function buildPlanAction(
     buildsRunning.delete(account.id);
   }
 
-  if (result?.ok) redirect("/test-plans");
+  if (result?.ok) redirect("/today");
   return { message: refusalMessage(result) };
 }
 

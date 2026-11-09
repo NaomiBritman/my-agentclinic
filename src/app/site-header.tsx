@@ -84,7 +84,10 @@ export function SiteHeader() {
           </span>
           {SITE_NAME}
         </Link>
-        <nav className="grid auto-cols-fr grid-flow-col gap-1 sm:flex sm:items-center">
+        <nav
+          aria-label={WORDING.navigation.siteLabel}
+          className="grid auto-cols-fr grid-flow-col gap-1 sm:flex sm:items-center"
+        >
           <Suspense fallback={null}>
             <AccountNavigation />
           </Suspense>

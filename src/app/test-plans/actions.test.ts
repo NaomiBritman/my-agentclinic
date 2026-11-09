@@ -121,7 +121,7 @@ describe("building", () => {
     const account = await loggedIn();
     useProvider(validReplies(testA));
 
-    await expect(build()).rejects.toThrow("redirect:/test-plans");
+    await expect(build()).rejects.toThrow("redirect:/today");
 
     const plan = getActivePlan(testDatabase.db, account.id);
     expect(plan?.testProfileKey).toBe(testA.key);
@@ -253,7 +253,7 @@ describe("building", () => {
 
       const outcome = await buildThroughWaits();
 
-      expect("error" in outcome && outcome.error.message).toBe("redirect:/test-plans");
+      expect("error" in outcome && outcome.error.message).toBe("redirect:/today");
       expect(requests).toHaveLength(3);
       expect(getActivePlan(testDatabase.db, account.id)).not.toBeNull();
     });
@@ -264,7 +264,7 @@ describe("building", () => {
       await buildThroughWaits();
 
       useProvider(validReplies(testA));
-      await expect(build()).rejects.toThrow("redirect:/test-plans");
+      await expect(build()).rejects.toThrow("redirect:/today");
     });
 
     test("the busy message is neutral, and different from the safety message", () => {
@@ -348,7 +348,7 @@ describe("building", () => {
     expect(calls).toBe(1);
 
     release(replies[0]);
-    await expect(first).rejects.toThrow("redirect:/test-plans");
+    await expect(first).rejects.toThrow("redirect:/today");
     expect(calls).toBe(2);
   });
 
@@ -358,7 +358,7 @@ describe("building", () => {
     await build();
 
     useProvider(validReplies(testA));
-    await expect(build()).rejects.toThrow("redirect:/test-plans");
+    await expect(build()).rejects.toThrow("redirect:/today");
 
     expect(getActivePlan(testDatabase.db, account.id)).not.toBeNull();
   });
@@ -447,7 +447,7 @@ describe("access", () => {
       const account = await loggedIn("a@example.com", LOW_BMI);
       useProvider(validReplies(testB));
 
-      await expect(build(testB.key)).rejects.toThrow("redirect:/test-plans");
+      await expect(build(testB.key)).rejects.toThrow("redirect:/today");
 
       expect(getActivePlan(testDatabase.db, account.id)?.testProfileKey).toBe(testB.key);
     });
@@ -464,7 +464,7 @@ describe("start over", () => {
     expect(getActivePlan(testDatabase.db, account.id)).toBeNull();
 
     useProvider(validReplies(testB));
-    await expect(build(testB.key)).rejects.toThrow("redirect:/test-plans");
+    await expect(build(testB.key)).rejects.toThrow("redirect:/today");
     expect(getActivePlan(testDatabase.db, account.id)?.testProfileKey).toBe(testB.key);
   });
 
@@ -554,7 +554,7 @@ describe("saved details never reach the provider", () => {
       if (!profile) throw new Error("unknown test profile");
       const { requests } = useProvider(validReplies(profile));
 
-      await expect(build(key)).rejects.toThrow("redirect:/test-plans");
+      await expect(build(key)).rejects.toThrow("redirect:/today");
 
       expect(requests).toHaveLength(2);
       for (const { prompt, schema } of requests) {
