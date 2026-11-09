@@ -161,7 +161,10 @@ The project owner reads the full list of new text and signs off that it is neutr
 
 ## Results
 
-To be recorded at each milestone.
+Recorded at each milestone.
+
+- **Milestone 1 automated checks:** on 2026-11-09, in a separate copy of the tracked and new files with no `.env` or database, clean install, lint, type check, 338 tests and a production build all passed.
+- **Milestone 1 browser run:** on 2026-11-09, a scripted journey in headless Edge at 400px and 1280px passed on `npm run start`, using a throwaway database and made-up details. The server log contained no emails, passwords or eligibility text. It didn't replace the owner's walkthrough, and the Milestone 1 items stay unticked until the owner has checked them.
 
 ## Merge
 

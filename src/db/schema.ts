@@ -85,6 +85,9 @@ export const profile = sqliteTable("profile", {
   weightKg: real("weight_kg").notNull(),
   fitnessLevel: text("fitness_level").notNull(),
   goal: text("goal").notNull(),
+  // Empty for profiles saved before the eligibility questions existed.
+  eatingDisorderAnswer: text("eating_disorder_answer"),
+  medicalConditionAnswer: text("medical_condition_answer"),
   updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
 });
 

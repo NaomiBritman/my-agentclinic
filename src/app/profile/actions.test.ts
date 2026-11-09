@@ -1,9 +1,11 @@
-import { afterAll, beforeEach, expect, test, vi } from "vitest";
+import { eq } from "drizzle-orm";
+import { afterAll, beforeEach, describe, expect, test, vi } from "vitest";
 
 import { profile, user } from "@/db/schema";
 import { createTestDatabase } from "@/db/test-database";
 import { signUp } from "@/lib/accounts";
 import { getAuth, requireAccountWithProfile } from "@/lib/auth-server";
+import { getEligibilityMessage, getTestPlanAccess } from "@/lib/plan-access";
 import { getProfile } from "@/lib/profiles";
 import { WORDING } from "@/lib/wording";
 
@@ -34,9 +36,18 @@ vi.stubEnv("BETTER_AUTH_URL", "http://127.0.0.1:3000");
 
 const PASSWORD = "not-a-real-password";
 const EMPTY_STATE: ProfileFormState = {
-  values: { age: "", heightCm: "", weightKg: "", fitnessLevel: "", goal: "" },
+  values: {
+    age: "",
+    heightCm: "",
+    weightKg: "",
+    fitnessLevel: "",
+    goal: "",
+    eatingDisorderAnswer: "",
+    medicalConditionAnswer: "",
+  },
   errors: {},
   saved: false,
+  eligibilityMessage: null,
 };
 
 // Height and weight are deliberately unrealistic test values, not health data.
@@ -46,6 +57,8 @@ const VALID_FIELDS = {
   weightKg: "1",
   fitnessLevel: "beginner",
   goal: "toning",
+  eatingDisorderAnswer: "no",
+  medicalConditionAnswer: "no",
 };
 
 function form(fields: Record<string, string>) {
@@ -100,6 +113,8 @@ test("a valid profile saves, and reads back", async () => {
     weightKg: 1,
     fitnessLevel: "beginner",
     goal: "toning",
+    eatingDisorderAnswer: "no",
+    medicalConditionAnswer: "no",
   });
 });
 
@@ -189,4 +204,189 @@ test("a refused under-18 profile doesn't open tracking pages", async () => {
 
 test("a logged-out visitor to a tracking page is sent to log in", async () => {
   await expect(requireAccountWithProfile()).rejects.toThrow("redirect:/log-in");
+});
+
+describe("eligibility", () => {
+  const LOW_BMI = { heightCm: "100", weightKg: "18.49" };
+
+  async function loggedIn(email = "a@example.com") {
+    const account = await createAccount(email);
+    requestHeaders.current = account.headers;
+    return account;
+  }
+
+  test("unanswered questions save nothing, and keep what was typed", async () => {
+    const account = await loggedIn();
+
+    const state = await save({
+      ...VALID_FIELDS,
+      eatingDisorderAnswer: "",
+      medicalConditionAnswer: "",
+    });
+
+    expect(state.saved).toBe(false);
+    expect(state.errors.eatingDisorderAnswer).toBe(
+      WORDING.eligibility.answerRequired,
+    );
+    expect(state.values.age).toBe("18");
+    expect(getProfile(testDatabase.db, account.id)).toBeNull();
+  });
+
+  test.each(["eatingDisorderAnswer", "medicalConditionAnswer"])(
+    "a yes to %s saves, shows the message and leaves no plans available",
+    async (field) => {
+      const account = await loggedIn();
+
+      const state = await save({ ...VALID_FIELDS, [field]: "yes" });
+
+      expect(state.saved).toBe(true);
+      expect(state.eligibilityMessage).toBe(WORDING.eligibility.noPlan);
+      expect(getTestPlanAccess(testDatabase.db, account.id)).toEqual({
+        status: "no-plan",
+      });
+    },
+  );
+
+  test("changing a yes back to no restores access and clears the message", async () => {
+    const account = await loggedIn();
+
+    await save({ ...VALID_FIELDS, medicalConditionAnswer: "yes" });
+    const state = await save(VALID_FIELDS);
+
+    expect(state.eligibilityMessage).toBeNull();
+    expect(getTestPlanAccess(testDatabase.db, account.id).status).toBe(
+      "available",
+    );
+  });
+
+  test("weight loss with a low BMI isn't saved, and keeps what was typed", async () => {
+    const account = await loggedIn();
+
+    const state = await save({
+      ...VALID_FIELDS,
+      ...LOW_BMI,
+      goal: "weight-loss",
+    });
+
+    expect(state.saved).toBe(false);
+    expect(state.errors.goal).toBe(WORDING.eligibility.noWeightLossPlan);
+    expect(state.values.weightKg).toBe("18.49");
+    expect(getProfile(testDatabase.db, account.id)).toBeNull();
+  });
+
+  test("an edit that would break the BMI rule leaves the saved profile unchanged", async () => {
+    const account = await loggedIn();
+
+    await save({ ...VALID_FIELDS, goal: "weight-loss" });
+    const state = await save({
+      ...VALID_FIELDS,
+      ...LOW_BMI,
+      goal: "weight-loss",
+    });
+
+    expect(state.saved).toBe(false);
+    expect(getProfile(testDatabase.db, account.id)?.weightKg).toBe(1);
+  });
+
+  test("another goal saves with a low BMI, with weight loss plans hidden", async () => {
+    const account = await loggedIn();
+
+    const state = await save({ ...VALID_FIELDS, ...LOW_BMI, goal: "toning" });
+
+    expect(state.saved).toBe(true);
+    expect(state.eligibilityMessage).toBeNull();
+    expect(getTestPlanAccess(testDatabase.db, account.id)).toEqual({
+      status: "available",
+      hiddenGoals: ["weight-loss"],
+    });
+  });
+
+  test("an older saved weight loss profile with a low BMI gets the message", async () => {
+    const account = await loggedIn();
+
+    await save({ ...VALID_FIELDS, ...LOW_BMI, goal: "toning" });
+    testDatabase.db
+      .update(profile)
+      .set({ goal: "weight-loss" })
+      .where(eq(profile.userId, account.id))
+      .run();
+
+    const saved = getProfile(testDatabase.db, account.id);
+    expect(saved && getEligibilityMessage(saved)).toBe(
+      WORDING.eligibility.noWeightLossPlan,
+    );
+  });
+
+  test("a profile with no answers keeps tracking, with test plans unavailable", async () => {
+    const account = await loggedIn();
+
+    await save(VALID_FIELDS);
+    testDatabase.db
+      .update(profile)
+      .set({ eatingDisorderAnswer: null, medicalConditionAnswer: null })
+      .where(eq(profile.userId, account.id))
+      .run();
+
+    await expect(requireAccountWithProfile()).resolves.toMatchObject({
+      id: account.id,
+    });
+    expect(getTestPlanAccess(testDatabase.db, account.id)).toEqual({
+      status: "answers-missing",
+    });
+  });
+
+  test("an unexpected stored answer counts as unanswered", async () => {
+    const account = await loggedIn();
+
+    await save(VALID_FIELDS);
+    testDatabase.db
+      .update(profile)
+      .set({ eatingDisorderAnswer: "maybe" })
+      .where(eq(profile.userId, account.id))
+      .run();
+
+    expect(getTestPlanAccess(testDatabase.db, account.id).status).toBe(
+      "answers-missing",
+    );
+  });
+
+  test("a yes answer doesn't stop tracking", async () => {
+    const account = await loggedIn();
+
+    await save({ ...VALID_FIELDS, eatingDisorderAnswer: "yes" });
+
+    await expect(requireAccountWithProfile()).resolves.toMatchObject({
+      id: account.id,
+    });
+  });
+
+  test("an account with no profile has no test plans", async () => {
+    const account = await loggedIn();
+
+    expect(getTestPlanAccess(testDatabase.db, account.id)).toEqual({
+      status: "no-profile",
+    });
+  });
+
+  test("two accounts can't read or change each other's answers", async () => {
+    const accountA = await createAccount("a@example.com");
+    const accountB = await createAccount("b@example.com");
+
+    requestHeaders.current = accountA.headers;
+    await save({ ...VALID_FIELDS, eatingDisorderAnswer: "yes" });
+
+    // Account B names account A in the form, which must be ignored.
+    requestHeaders.current = accountB.headers;
+    const state = await save({ ...VALID_FIELDS, userId: accountA.id });
+
+    expect(state.eligibilityMessage).toBeNull();
+    expect(getProfile(testDatabase.db, accountA.id)?.eatingDisorderAnswer).toBe(
+      "yes",
+    );
+    expect(getProfile(testDatabase.db, accountB.id)?.eatingDisorderAnswer).toBe(
+      "no",
+    );
+    expect(getTestPlanAccess(testDatabase.db, accountA.id).status).toBe("no-plan");
+    expect(getTestPlanAccess(testDatabase.db, accountB.id).status).toBe("available");
+  });
 });

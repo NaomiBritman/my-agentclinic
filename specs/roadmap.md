@@ -76,9 +76,9 @@ Completed under the earlier project name.
 
 **Unblocked: the exercise limits and goal eligibility are approved (see [safety-limits.md](safety-limits.md)).**
 
-- [ ] Add the two approved eligibility questions, and show the approved neutral messages when a plan or goal can't be offered.
-- [ ] Implement the approved exercise limits and goal eligibility rules as a standalone module.
-- [ ] Add tests showing that plans can't exceed the limits, and that ineligible goals are refused.
+- [x] Add the two approved eligibility questions, and show the approved neutral messages when a plan or goal can't be offered.
+- [x] Implement the approved exercise limits and goal eligibility rules as a standalone module.
+- [x] Add tests showing that plans can't exceed the limits, and that ineligible goals are refused.
 
 ## Phase 10: AI agent connection
 
@@ -108,8 +108,8 @@ Completed under the earlier project name.
 
 **Unblocked: the nutrition limits are approved (see [safety-limits.md](safety-limits.md)).**
 
-- [ ] Add the approved nutrition limits to the safety module.
-- [ ] Add tests showing that menus and targets can't go past the limits.
+- [x] Add the approved nutrition limits to the safety module.
+- [x] Add tests showing that menus and targets can't go past the limits.
 
 ## Phase 14: AI menu
 

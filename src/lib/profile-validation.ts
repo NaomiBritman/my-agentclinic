@@ -1,8 +1,12 @@
+import {
+  isWeightLossRefusedByBmi,
+  type EligibilityAnswer,
+} from "./safety/eligibility";
+import { ADULT_AGE } from "./safety/limits";
 import { WORDING } from "./wording";
 
-// The adults-only rule from the mission. Height and weight have no range,
-// because any range would be an invented health number.
-const ADULT_AGE = 18;
+// Height and weight have no range of their own, because any range would be an
+// invented health number. The approved BMI rule only affects the weight loss goal.
 
 export const FITNESS_LEVELS = Object.keys(
   WORDING.profile.fitnessLevels,
@@ -11,6 +15,8 @@ export const FITNESS_LEVELS = Object.keys(
 export const GOALS = Object.keys(
   WORDING.profile.goals,
 ) as (keyof typeof WORDING.profile.goals)[];
+
+export const ELIGIBILITY_ANSWERS: readonly EligibilityAnswer[] = ["yes", "no"];
 
 export type FitnessLevel = (typeof FITNESS_LEVELS)[number];
 export type Goal = (typeof GOALS)[number];
@@ -21,6 +27,8 @@ export type ProfileValues = {
   weightKg: number;
   fitnessLevel: FitnessLevel;
   goal: Goal;
+  eatingDisorderAnswer: EligibilityAnswer;
+  medicalConditionAnswer: EligibilityAnswer;
 };
 
 export type ProfileField = keyof ProfileValues;
@@ -66,11 +74,27 @@ export function validateProfile(input: ProfileFormInput): ProfileValidation {
   const weightKg = parsePositiveNumber(input.weightKg);
   if (weightKg === null) errors.weightKg = WORDING.profile.weightInvalid;
 
-  const { fitnessLevel, goal } = input;
+  const { fitnessLevel, goal, eatingDisorderAnswer, medicalConditionAnswer } =
+    input;
   if (!isOneOf(FITNESS_LEVELS, fitnessLevel)) {
     errors.fitnessLevel = WORDING.profile.fitnessLevelInvalid;
   }
   if (!isOneOf(GOALS, goal)) errors.goal = WORDING.profile.goalInvalid;
+  if (!isOneOf(ELIGIBILITY_ANSWERS, eatingDisorderAnswer)) {
+    errors.eatingDisorderAnswer = WORDING.eligibility.answerRequired;
+  }
+  if (!isOneOf(ELIGIBILITY_ANSWERS, medicalConditionAnswer)) {
+    errors.medicalConditionAnswer = WORDING.eligibility.answerRequired;
+  }
+
+  if (
+    goal === "weight-loss" &&
+    heightCm !== null &&
+    weightKg !== null &&
+    isWeightLossRefusedByBmi(heightCm, weightKg)
+  ) {
+    errors.goal = WORDING.eligibility.noWeightLossPlan;
+  }
 
   if (
     age === null ||
@@ -89,6 +113,8 @@ export function validateProfile(input: ProfileFormInput): ProfileValidation {
       weightKg,
       fitnessLevel: fitnessLevel as FitnessLevel,
       goal: goal as Goal,
+      eatingDisorderAnswer: eatingDisorderAnswer as EligibilityAnswer,
+      medicalConditionAnswer: medicalConditionAnswer as EligibilityAnswer,
     },
   };
 }

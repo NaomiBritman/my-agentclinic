@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { getDatabase } from "@/db/database";
 import { requireAccount } from "@/lib/auth-server";
+import { getEligibilityMessage } from "@/lib/plan-access";
 import type { ProfileFormInput } from "@/lib/profile-validation";
 import { getProfile } from "@/lib/profiles";
 import { SITE_NAME } from "@/lib/site";
@@ -25,10 +26,25 @@ async function ProfileContent() {
         weightKg: String(saved.weightKg),
         fitnessLevel: saved.fitnessLevel,
         goal: saved.goal,
+        eatingDisorderAnswer: saved.eatingDisorderAnswer ?? "",
+        medicalConditionAnswer: saved.medicalConditionAnswer ?? "",
       }
-    : { age: "", heightCm: "", weightKg: "", fitnessLevel: "", goal: "" };
+    : {
+        age: "",
+        heightCm: "",
+        weightKg: "",
+        fitnessLevel: "",
+        goal: "",
+        eatingDisorderAnswer: "",
+        medicalConditionAnswer: "",
+      };
 
-  return <ProfileForm initial={initial} />;
+  return (
+    <ProfileForm
+      initial={initial}
+      initialMessage={saved ? getEligibilityMessage(saved) : null}
+    />
+  );
 }
 
 export default function ProfilePage() {

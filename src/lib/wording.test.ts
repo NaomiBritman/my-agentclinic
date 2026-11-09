@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 import { describe, expect, test } from "vitest";
 
 import { SAMPLE_EXERCISES, SAMPLE_MEALS } from "./samples";
@@ -106,6 +108,15 @@ test("the site text was collected", () => {
   expect(ALL_TEXT).toContain(WORDING.today.noteHelp);
   expect(ALL_TEXT).toContain("Wall push-ups");
   expect(ALL_TEXT).toContain(MEDICAL_NOTICE);
+});
+
+test.each([
+  WORDING.eligibility.eatingDisorderQuestion,
+  WORDING.eligibility.medicalConditionQuestion,
+  WORDING.eligibility.noPlan,
+  WORDING.eligibility.noWeightLossPlan,
+])("%j matches the approved text exactly", (text) => {
+  expect(readFileSync("specs/safety-limits.md", "utf8")).toContain(text);
 });
 
 test.each(ALL_TEXT)("%j has no numbers, pressure or judgments", (text) => {

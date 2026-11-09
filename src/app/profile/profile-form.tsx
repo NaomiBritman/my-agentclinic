@@ -103,11 +103,59 @@ function ChoiceField({
   );
 }
 
-export function ProfileForm({ initial }: { initial: ProfileFormInput }) {
+function AnswerField({
+  field,
+  question,
+  state,
+}: {
+  field: "eatingDisorderAnswer" | "medicalConditionAnswer";
+  question: string;
+  state: ProfileFormState;
+}) {
+  const options = [
+    { value: "yes", label: WORDING.eligibility.yes },
+    { value: "no", label: WORDING.eligibility.no },
+  ];
+
+  return (
+    // The key restores the choice after React resets the form.
+    <fieldset
+      key={state.values[field]}
+      aria-describedby={state.errors[field] ? `${field}-error` : undefined}
+    >
+      <legend className="font-medium">{question}</legend>
+      <div className="mt-1 flex gap-6">
+        {options.map((option) => (
+          <label key={option.value} className="flex items-center gap-2 py-1">
+            <input
+              type="radio"
+              name={field}
+              value={option.value}
+              required
+              defaultChecked={state.values[field] === option.value}
+              className="size-4"
+            />
+            {option.label}
+          </label>
+        ))}
+      </div>
+      <FieldError field={field} state={state} />
+    </fieldset>
+  );
+}
+
+export function ProfileForm({
+  initial,
+  initialMessage,
+}: {
+  initial: ProfileFormInput;
+  initialMessage: string | null;
+}) {
   const [state, formAction, pending] = useActionState(saveProfileAction, {
     values: initial,
     errors: {},
     saved: false,
+    eligibilityMessage: initialMessage,
   });
 
   return (
@@ -149,6 +197,21 @@ export function ProfileForm({ initial }: { initial: ProfileFormInput }) {
         state={state}
       />
       <p className="opacity-80">{WORDING.profile.goalNote}</p>
+      <AnswerField
+        field="eatingDisorderAnswer"
+        question={WORDING.eligibility.eatingDisorderQuestion}
+        state={state}
+      />
+      <AnswerField
+        field="medicalConditionAnswer"
+        question={WORDING.eligibility.medicalConditionQuestion}
+        state={state}
+      />
+      {state.eligibilityMessage ? (
+        <p role="status" className="font-medium">
+          {state.eligibilityMessage}
+        </p>
+      ) : null}
       {state.saved ? (
         <p role="status" className="font-medium">
           {WORDING.profile.saved}

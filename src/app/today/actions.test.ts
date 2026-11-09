@@ -60,6 +60,8 @@ async function createAccount(email: string, { withProfile = true } = {}) {
       weightKg: 1,
       fitnessLevel: "beginner",
       goal: "toning",
+      eatingDisorderAnswer: "no",
+      medicalConditionAnswer: "no",
     });
   }
   const cookie = headers.getSetCookie().map((value) => value.split(";")[0]);

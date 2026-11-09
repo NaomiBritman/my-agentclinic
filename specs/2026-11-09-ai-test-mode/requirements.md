@@ -99,7 +99,7 @@ Supporting work:
     - In a first week, sets, repetitions and load exactly match the approved catalog amounts.
 11. A next week is also refused unless all of these hold:
     - Aerobic minutes rise by at most 10%, and stay at or under 300.
-    - The exercises and sets are the same as the previous week.
+    - The exercises and sets are the same as the previous week, and so are the repetitions of loaded exercises, because no increase is approved for them.
     - No-load exercises gain at most 2 repetitions per set.
     - Load rises by at most 5%, and only for an exercise marked as done with one to two extra repetitions. Otherwise its load doesn't change.
     - No amount falls below the previous week.
@@ -186,6 +186,7 @@ These are drafts for the project owner's wording sign-off:
 | No menu produced | No test menu could be produced within the safety limits, so nothing is shown. A health professional can help you find what suits you. |
 | Menu notice | This test menu isn't for real use. AI menus can contain mistakes, and people with allergies should check ingredients. |
 | Yes and no | Yes / No |
+| Question not answered | Choose yes or no. |
 | Amount changes | No change / Increased |
 
 ## Decisions

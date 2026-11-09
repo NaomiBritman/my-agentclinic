@@ -4,12 +4,22 @@ import type { AppDatabase } from "@/db/database";
 import { profile } from "@/db/schema";
 
 import type { ProfileValues } from "./profile-validation";
+import type { EligibilityAnswer } from "./safety/eligibility";
+
+/** A saved profile. Profiles from before the questions existed have no answers. */
+export type SavedProfile = Omit<
+  ProfileValues,
+  "eatingDisorderAnswer" | "medicalConditionAnswer"
+> & {
+  eatingDisorderAnswer: EligibilityAnswer | null;
+  medicalConditionAnswer: EligibilityAnswer | null;
+};
 
 /** Reads one account's profile. The account ID must come from the session. */
 export function getProfile(
   db: AppDatabase,
   accountId: string,
-): ProfileValues | null {
+): SavedProfile | null {
   const row = db
     .select()
     .from(profile)
@@ -23,7 +33,14 @@ export function getProfile(
     weightKg: row.weightKg,
     fitnessLevel: row.fitnessLevel as ProfileValues["fitnessLevel"],
     goal: row.goal as ProfileValues["goal"],
+    eatingDisorderAnswer: readAnswer(row.eatingDisorderAnswer),
+    medicalConditionAnswer: readAnswer(row.medicalConditionAnswer),
   };
+}
+
+/** Anything other than a stored yes or no counts as unanswered. */
+function readAnswer(value: string | null): EligibilityAnswer | null {
+  return value === "yes" || value === "no" ? value : null;
 }
 
 /** Saves one account's profile, replacing any old values. */

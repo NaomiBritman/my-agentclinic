@@ -57,6 +57,19 @@ export const WORDING = {
     goalNote:
       "Saving a goal doesn't create a plan. Personal plans aren't available yet.",
   },
+  eligibility: {
+    eatingDisorderQuestion:
+      "Have you been diagnosed with or treated for an eating disorder?",
+    medicalConditionQuestion:
+      "Do you have a medical condition, injury or doctor's restriction that affects exercise or eating?",
+    yes: "Yes",
+    no: "No",
+    answerRequired: "Choose yes or no.",
+    noPlan:
+      "My Fit Plan can't create a plan for you. A health professional can help you find what suits you.",
+    noWeightLossPlan:
+      "My Fit Plan can't create a weight loss plan for you. A health professional can help you find what suits you.",
+  },
   today: {
     heading: "Today",
     exercisesHeading: "Exercises",
