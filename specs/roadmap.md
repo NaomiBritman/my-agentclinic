@@ -84,9 +84,9 @@ Completed under the earlier project name.
 
 Done on the same branch as Phases 9–15, before Phase 10.
 
-- [ ] Add the teal and coral palette in light and dark, with contrast tests.
-- [ ] Build shared components, and use them on every page.
-- [ ] Use icons and color for character, with no photos or illustrations of people.
+- [x] Add the teal and coral palette in light and dark, with contrast tests.
+- [x] Build shared components, and use them on every page.
+- [x] Use icons and color for character, with no photos or illustrations of people.
 
 ## Phase 10: AI agent connection
 

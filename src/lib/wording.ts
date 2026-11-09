@@ -84,6 +84,10 @@ export const WORDING = {
     noteSaveButton: "Save note",
     noteSaved: "Your note is saved.",
   },
+  notFound: {
+    heading: "This page doesn't exist",
+    backHome: "Back to the home page",
+  },
   history: {
     heading: "History",
     empty: "No past days to show yet.",

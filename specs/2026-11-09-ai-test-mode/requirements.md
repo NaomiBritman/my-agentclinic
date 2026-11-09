@@ -94,7 +94,7 @@ Supporting work:
 - A food database, a calorie or weight formula, vigorous exercise and new goals or fitness levels.
 - Photos of people, illustrations of people and person icons.
 - Editing past days, Phase 16, public deployment and changes to the `127.0.0.1` limit.
-- Changing the not-medical-advice notice or the home page sentence.
+- Changing the not-medical-advice notice.
 
 ## Functional requirements
 
@@ -138,7 +138,7 @@ Supporting work:
 ### AI connection (Phase 10)
 
 19. Gemini is called only on the server, with the key read only from `.env` as `GEMINI_API_KEY`. `.env.example` lists the name with an empty value. The project owner adds the key to `.env` themselves, and it is never pasted into a chat.
-20. The model is a Flash model available on the free tier, set by `GEMINI_MODEL` in `.env`.
+20. The model is a Flash model available on the free tier, set by `GEMINI_MODEL` in `.env`. On 2026-11-09 that is `gemini-3.8-flash`.
 21. Generation functions take a test profile key, not profile values, and look the profile up from the built-in list. Their code can't import profile, database or session modules.
 22. A request contains only the test profile's age, height, weight, fitness level, goal, allergies and dietary restrictions, along with the catalog, the limits and the output format.
 23. The agent returns structured data in a defined format. All of its output is untrusted until it passes the safety module. Text fields have length limits, and unknown fields are refused.
@@ -186,6 +186,8 @@ Supporting work:
 53. Color is never the only way a meaning is shown.
 54. Motion is limited to small transitions and the loading state, and respects the device's reduced motion setting.
 55. Every page keeps the not-medical-advice footer, and its text is unchanged.
+56. The home page says "Your month of movement and meals, one day at a time." Its four cards are links: Today goes to `/today`, Exercises and Menu go to those sections of `/today`, and History goes to `/history`. Logged-out visitors are sent to log in, as for any personal page.
+57. Tick boxes and radio buttons use the shared style in light and dark, not the browser's own.
 
 ### Wording
 
@@ -199,6 +201,8 @@ These messages are approved, and are used as written:
 | BMI under 18.5, weight loss | My Fit Plan can't create a weight loss plan for you. A health professional can help you find what suits you. |
 | Test mode notice | Test mode: this plan is created from a made-up sample profile. Your saved details are not sent. |
 | Demonstration notice | Demonstration only: this isn't a plan to follow. It was built for a made-up person, not for you. |
+| Home page sentence | Your month of movement and meals, one day at a time. |
+| Page not found | This page doesn't exist / Back to the home page |
 
 These are drafts for the project owner's wording sign-off:
 
@@ -240,6 +244,10 @@ Teal and coral, chosen by the project owner. A test checks every pair below, and
 | Small accent, never text | `#FACC15` | `#FACC15` |
 | Page band gradient | `#0F766E` to `#065F46`, with white text | `#115E59` to `#064E3B`, with white text |
 | Notice background | `#FFF4E5`, with `#7C2D12` text | `#3B2412`, with `#FFE4C7` text |
+| Teal icon chip | `#D8F3EE`, with `#0F5F58` | `#134E4A`, with `#99F6E4` |
+| Coral icon chip | `#FFE7DC`, with `#9A3412` | `#4A2413`, with `#FDBA74` |
+| Control outline | `#5B7A74` | `#7FA39C` |
+| Keyboard focus | `#C2410C` | `#FDE047` |
 
 ### Style
 

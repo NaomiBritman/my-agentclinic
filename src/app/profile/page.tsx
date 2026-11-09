@@ -1,6 +1,8 @@
+import { ClipboardList } from "lucide-react";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import { Card, PageBand, PageContent } from "@/components/ui";
 import { getDatabase } from "@/db/database";
 import { requireAccount } from "@/lib/auth-server";
 import { getEligibilityMessage } from "@/lib/plan-access";
@@ -49,13 +51,19 @@ async function ProfileContent() {
 
 export default function ProfilePage() {
   return (
-    <main className="mx-auto max-w-md px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        {WORDING.profile.heading}
-      </h1>
-      <Suspense fallback={null}>
-        <ProfileContent />
-      </Suspense>
+    <main>
+      <PageBand
+        icon={ClipboardList}
+        title={WORDING.profile.heading}
+        width="medium"
+      />
+      <PageContent width="medium">
+        <Card>
+          <Suspense fallback={null}>
+            <ProfileContent />
+          </Suspense>
+        </Card>
+      </PageContent>
     </main>
   );
 }

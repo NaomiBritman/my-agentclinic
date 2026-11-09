@@ -1,3 +1,12 @@
+import {
+  Activity,
+  CalendarCheck,
+  ClipboardList,
+  History,
+  LogIn,
+  LogOut,
+  PenLine,
+} from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -6,8 +15,10 @@ import { SITE_NAME } from "@/lib/site";
 import { WORDING } from "@/lib/wording";
 
 import { logOutAction } from "./account-actions";
+import { navItemClasses } from "./nav-classes";
+import { NavLink } from "./nav-link";
 
-const linkClasses = "underline-offset-4 hover:underline";
+const iconClasses = "size-5 shrink-0";
 
 async function AccountNavigation() {
   const account = await getCurrentAccount();
@@ -15,29 +26,35 @@ async function AccountNavigation() {
   if (!account) {
     return (
       <>
-        <Link href="/sign-up" className={linkClasses}>
+        <NavLink href="/sign-up">
+          <PenLine aria-hidden className={iconClasses} />
           {WORDING.accounts.signUpHeading}
-        </Link>
-        <Link href="/log-in" className={linkClasses}>
+        </NavLink>
+        <NavLink href="/log-in">
+          <LogIn aria-hidden className={iconClasses} />
           {WORDING.accounts.logInHeading}
-        </Link>
+        </NavLink>
       </>
     );
   }
 
   return (
     <>
-      <Link href="/today" className={linkClasses}>
+      <NavLink href="/today">
+        <CalendarCheck aria-hidden className={iconClasses} />
         {WORDING.navigation.today}
-      </Link>
-      <Link href="/history" className={linkClasses}>
+      </NavLink>
+      <NavLink href="/history">
+        <History aria-hidden className={iconClasses} />
         {WORDING.navigation.history}
-      </Link>
-      <Link href="/profile" className={linkClasses}>
+      </NavLink>
+      <NavLink href="/profile">
+        <ClipboardList aria-hidden className={iconClasses} />
         {WORDING.navigation.profile}
-      </Link>
-      <form action={logOutAction}>
-        <button type="submit" className={`${linkClasses} cursor-pointer`}>
+      </NavLink>
+      <form action={logOutAction} className="contents">
+        <button type="submit" className={navItemClasses}>
+          <LogOut aria-hidden className={iconClasses} />
           {WORDING.accounts.logOutButton}
         </button>
       </form>
@@ -47,12 +64,18 @@ async function AccountNavigation() {
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-foreground/15 px-4 py-4">
-      <div className="mx-auto flex max-w-2xl flex-wrap items-center justify-between gap-x-6 gap-y-2">
-        <Link href="/" className="font-semibold">
+    <header className="border-b border-line bg-card py-2">
+      <div className="mx-auto flex max-w-5xl flex-col gap-1 px-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+        <Link
+          href="/"
+          className="flex min-h-11 items-center gap-2 self-start text-lg font-bold sm:self-auto"
+        >
+          <span className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-band-from to-band-to text-band-ink">
+            <Activity aria-hidden className="size-5" />
+          </span>
           {SITE_NAME}
         </Link>
-        <nav className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <nav className="grid auto-cols-fr grid-flow-col gap-1 sm:flex sm:items-center">
           <Suspense fallback={null}>
             <AccountNavigation />
           </Suspense>

@@ -2,6 +2,13 @@
 
 import { useActionState } from "react";
 
+import {
+  buttonClasses,
+  fieldClasses,
+  FormMessage,
+  helpClasses,
+  labelClasses,
+} from "@/components/ui";
 import { WORDING } from "@/lib/wording";
 
 import type { AccountFormState } from "./account-actions";
@@ -18,9 +25,6 @@ type AccountFormProps = {
 
 const INITIAL_STATE: AccountFormState = { message: "", email: "" };
 
-const inputClasses =
-  "mt-1 w-full rounded-md border border-foreground/30 bg-background px-3 py-2 text-base";
-
 export function AccountForm({
   action,
   submitLabel,
@@ -30,9 +34,9 @@ export function AccountForm({
   const [state, formAction, pending] = useActionState(action, INITIAL_STATE);
 
   return (
-    <form action={formAction} className="mt-6 space-y-4">
+    <form action={formAction} className="space-y-4">
       <div>
-        <label htmlFor="email" className="block font-medium">
+        <label htmlFor="email" className={labelClasses}>
           {WORDING.accounts.emailLabel}
         </label>
         <input
@@ -42,11 +46,11 @@ export function AccountForm({
           autoComplete="email"
           required
           defaultValue={state.email}
-          className={inputClasses}
+          className={fieldClasses}
         />
       </div>
       <div>
-        <label htmlFor="password" className="block font-medium">
+        <label htmlFor="password" className={labelClasses}>
           {WORDING.accounts.passwordLabel}
         </label>
         <input
@@ -56,24 +60,18 @@ export function AccountForm({
           autoComplete={passwordAutoComplete}
           required
           aria-describedby={passwordHelp ? "password-help" : undefined}
-          className={inputClasses}
+          className={fieldClasses}
         />
         {passwordHelp ? (
-          <p id="password-help" className="mt-1 text-sm opacity-80">
+          <p id="password-help" className={helpClasses}>
             {passwordHelp}
           </p>
         ) : null}
       </div>
       {state.message ? (
-        <p role="alert" className="font-medium">
-          {state.message}
-        </p>
+        <FormMessage tone="error">{state.message}</FormMessage>
       ) : null}
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-md bg-foreground px-4 py-2 font-medium text-background disabled:opacity-60 sm:w-auto"
-      >
+      <button type="submit" disabled={pending} className={buttonClasses}>
         {submitLabel}
       </button>
     </form>

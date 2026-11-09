@@ -103,6 +103,12 @@ describe("the wording test catches planted examples", () => {
   });
 });
 
+test("the home page uses the approved sentence", () => {
+  expect(MISSION_SENTENCE).toBe(
+    "Your month of movement and meals, one day at a time.",
+  );
+});
+
 test("the site text was collected", () => {
   expect(ALL_TEXT.length).toBeGreaterThan(50);
   expect(ALL_TEXT).toContain(WORDING.today.noteHelp);

@@ -111,15 +111,15 @@ The project owner uses a modern browser, with their own Gemini key from Mileston
 
 ### Milestone 2: redesign
 
-- [ ] Every page has the teal and coral look, with the same band, cards, buttons and fields.
-- [ ] The look works in both light and dark, following the device setting.
-- [ ] All text is easy to read, including notices, muted text, and text on the band.
-- [ ] Wide screens use the space well, and phones feel designed for phones.
-- [ ] Buttons, ticks and radio buttons are easy to press on a phone.
-- [ ] Keyboard focus is clearly visible.
-- [ ] There are no photos or illustrations of people, and no person icons.
-- [ ] The wording is unchanged, and everything from Milestone 1 still works.
-- [ ] No page scrolls sideways at either width.
+- [x] Every page has the teal and coral look, with the same band, cards, buttons and fields.
+- [x] The look works in both light and dark, following the device setting.
+- [x] All text is easy to read, including notices, muted text, and text on the band.
+- [x] Wide screens use the space well, and phones feel designed for phones.
+- [x] Buttons, ticks and radio buttons are easy to press on a phone.
+- [x] Keyboard focus is clearly visible.
+- [x] There are no photos or illustrations of people, and no person icons.
+- [x] The wording is unchanged, and everything from Milestone 1 still works.
+- [x] No page scrolls sideways at either width.
 
 ### Milestone 3: choosing and building (Phases 10 and 11)
 
@@ -194,7 +194,7 @@ The project owner reads the full list of new text and signs off that it is neutr
 - [ ] Code review finds no logging of personal data, eligibility answers, prompts, responses, keys or session tokens.
 - [ ] `logging.serverFunctions` stays off in `next.config.ts`.
 - [ ] Access rules are enforced on the server, in pages and actions.
-- [ ] The not-medical-advice notice and the home page sentence are unchanged.
+- [ ] The not-medical-advice notice is unchanged, and the home page shows the approved sentence.
 
 ## Results
 
@@ -203,6 +203,13 @@ Recorded at each milestone.
 - **Milestone 1 automated checks:** on 2026-11-09, in a separate copy of the tracked and new files with no `.env` or database, clean install, lint, type check, 338 tests and a production build all passed.
 - **Milestone 1 browser run:** on 2026-11-09, a scripted journey in headless Edge at 400px and 1280px passed on `npm run start`, using a throwaway database and made-up details. The server log contained no emails, passwords or eligibility text.
 - **Milestone 1 walkthrough:** on 2026-11-09, the project owner checked all eleven walkthrough items at phone and desktop widths, and it passed.
+- **Milestone 2 automated checks:** on 2026-11-09, in a separate copy with no `.env` or database, clean install, lint, type check, 405 tests and a production build all passed. After three small design fixes, lint, type check and 405 tests passed again, and a production build with no `.env` passed.
+- **Milestone 2 browser run:** on 2026-11-09, on the final code, a scripted run in headless Edge covered all seven pages at 400px and 1280px, in light and dark, using a throwaway database and made-up details. All 199 checks passed, covering sideways scrolling, the font, body text size, touch targets, images, keyboard focus, reduced motion and outside requests. The Milestone 1 flows passed all 56 checks on the new design. The server log contained no emails, passwords, notes or eligibility text.
+- **Milestone 2 accessibility scan:** on the final code, axe found no problems of any severity on all seven pages in both widths and modes. It can't fully judge text on the gradient band, which the contrast test covers.
+
+- **Milestone 2 walkthrough:** on 2026-11-09, the project owner checked all nine walkthrough items at phone and desktop widths, and it passed. The owner then asked for the new home page sentence, card links and restyled tick boxes, and approved the page-not-found wording.
+- **After those changes:** a clean install, lint, type check and 408 tests passed in a separate copy. After one more small fix, lint, type check, 408 tests and a production build with no `.env` passed, and the browser run passed all 207 checks and the Milestone 1 flows all 56, on a throwaway server on port 3100. Axe found no problems.
+- **Test accounts in the real database:** on 2026-11-09, a browser run reached the project owner's own dev server on port 3000, because port 3000 wasn't checked first. It added 5 `@example.com` test accounts with made-up details and 2 ticks to the real database, and changed nothing on the 2 existing accounts. Test scripts now refuse to use port 3000.
 
 ## Merge
 

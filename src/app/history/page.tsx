@@ -1,6 +1,8 @@
+import { History } from "lucide-react";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import { Card, helpClasses, PageBand, PageContent } from "@/components/ui";
 import { getDatabase } from "@/db/database";
 import { requireAccountWithProfile } from "@/lib/auth-server";
 import { formatDate, localDate } from "@/lib/dates";
@@ -16,8 +18,8 @@ function NameList({ heading, names }: { heading: string; names: string[] }) {
   if (names.length === 0) return null;
 
   return (
-    <div className="mt-3">
-      <h3 className="font-medium">{heading}</h3>
+    <div className="mt-4">
+      <h3 className="font-semibold text-chip-teal-ink">{heading}</h3>
       <ul className="mt-1 list-inside list-disc">
         {names.map((name) => (
           <li key={name}>{name}</li>
@@ -32,29 +34,37 @@ async function HistoryContent() {
   const days = getHistory(getDatabase(), account.id, localDate());
 
   if (days.length === 0) {
-    return <p className="mt-6 opacity-80">{WORDING.history.empty}</p>;
+    return (
+      <Card>
+        <p className={helpClasses}>{WORDING.history.empty}</p>
+      </Card>
+    );
   }
 
   return (
-    <div className="mt-6 space-y-6">
+    <div className="grid items-start gap-6 md:grid-cols-2">
       {days.map((day) => (
-        <section
-          key={day.date}
-          className="border-t border-foreground/15 pt-4"
-        >
-          <h2 className="text-xl font-semibold">{formatDate(day.date)}</h2>
-          <NameList
-            heading={WORDING.history.exercisesHeading}
-            names={day.exercises}
-          />
-          <NameList heading={WORDING.history.mealsHeading} names={day.meals} />
-          {day.note !== null ? (
-            <div className="mt-3">
-              <h3 className="font-medium">{WORDING.history.noteHeading}</h3>
-              <p className="mt-1 break-words whitespace-pre-wrap">{day.note}</p>
-            </div>
-          ) : null}
-        </section>
+        <Card key={day.date} accent="coral">
+          <section>
+            <h2 className="text-xl font-semibold">{formatDate(day.date)}</h2>
+            <NameList
+              heading={WORDING.history.exercisesHeading}
+              names={day.exercises}
+            />
+            <NameList
+              heading={WORDING.history.mealsHeading}
+              names={day.meals}
+            />
+            {day.note !== null ? (
+              <div className="mt-4">
+                <h3 className="font-semibold text-chip-teal-ink">
+                  {WORDING.history.noteHeading}
+                </h3>
+                <p className="mt-1 break-words whitespace-pre-wrap">{day.note}</p>
+              </div>
+            ) : null}
+          </section>
+        </Card>
       ))}
     </div>
   );
@@ -62,13 +72,13 @@ async function HistoryContent() {
 
 export default function HistoryPage() {
   return (
-    <main className="mx-auto max-w-2xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        {WORDING.history.heading}
-      </h1>
-      <Suspense fallback={null}>
-        <HistoryContent />
-      </Suspense>
+    <main>
+      <PageBand icon={History} title={WORDING.history.heading} />
+      <PageContent>
+        <Suspense fallback={null}>
+          <HistoryContent />
+        </Suspense>
+      </PageContent>
     </main>
   );
 }

@@ -20,7 +20,7 @@ function TrackingItem({
 
   return (
     <li>
-      <label className="flex cursor-pointer items-center gap-3 py-2">
+      <label className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-2 transition-colors hover:bg-chip-teal has-[:checked]:border-action has-[:checked]:bg-chip-teal">
         <input
           type="checkbox"
           name={item.key}
@@ -32,7 +32,7 @@ function TrackingItem({
               await setMarkAction(itemType, item.key, next);
             });
           }}
-          className="size-5 shrink-0"
+          className="tick size-6 shrink-0"
         />
         <span>{item.name}</span>
       </label>
@@ -50,7 +50,7 @@ export function TrackingList({
   marked: string[];
 }) {
   return (
-    <ul className="mt-3">
+    <ul className="mt-4 space-y-2">
       {items.map((item) => (
         <TrackingItem
           key={item.key}

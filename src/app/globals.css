@@ -1,24 +1,153 @@
 @import "tailwindcss";
 
+/*
+ * The named colors for the whole site. Pages use these names, never raw colors.
+ * src/lib/design.test.ts checks the contrast of every pair, in light and dark.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  color-scheme: light dark;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --page: #f6fbf9;
+  --card: #ffffff;
+  --ink: #12302b;
+  --muted: #3f5f59;
+  --line: #d3e4df;
+  --control: #5b7a74;
+  --focus: #c2410c;
+
+  --action: #0f766e;
+  --action-hover: #115e59;
+  --action-ink: #ffffff;
+  --highlight: #c2410c;
+  --accent: #facc15;
+
+  --band-from: #0f766e;
+  --band-to: #065f46;
+  --band-ink: #ffffff;
+
+  --notice: #fff4e5;
+  --notice-ink: #7c2d12;
+
+  --chip-teal: #d8f3ee;
+  --chip-teal-ink: #0f5f58;
+  --chip-coral: #ffe7dc;
+  --chip-coral-ink: #9a3412;
+
+  --tick-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+  --dot-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='6' fill='%23ffffff'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --page: #0b1f1c;
+    --card: #12302b;
+    --ink: #e6f4f1;
+    --muted: #b4cfc9;
+    --line: #27504a;
+    --control: #7fa39c;
+    --focus: #fde047;
+
+    --action: #2dd4bf;
+    --action-hover: #5eead4;
+    --action-ink: #0b1f1c;
+    --highlight: #fb923c;
+    --accent: #facc15;
+
+    --band-from: #115e59;
+    --band-to: #064e3b;
+    --band-ink: #ffffff;
+
+    --notice: #3b2412;
+    --notice-ink: #ffe4c7;
+
+    --chip-teal: #134e4a;
+    --chip-teal-ink: #99f6e4;
+    --chip-coral: #4a2413;
+    --chip-coral-ink: #fdba74;
+
+    --tick-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b1f1c' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+    --dot-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='6' fill='%230b1f1c'/%3E%3C/svg%3E");
   }
 }
 
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-page: var(--page);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-control: var(--control);
+  --color-action: var(--action);
+  --color-action-hover: var(--action-hover);
+  --color-action-ink: var(--action-ink);
+  --color-highlight: var(--highlight);
+  --color-accent: var(--accent);
+  --color-band-from: var(--band-from);
+  --color-band-to: var(--band-to);
+  --color-band-ink: var(--band-ink);
+  --color-notice: var(--notice);
+  --color-notice-ink: var(--notice-ink);
+  --color-chip-teal: var(--chip-teal);
+  --color-chip-teal-ink: var(--chip-teal-ink);
+  --color-chip-coral: var(--chip-coral);
+  --color-chip-coral-ink: var(--chip-coral-ink);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.on-band :focus-visible {
+  outline-color: var(--band-ink);
+}
+
+/* Tick boxes and radio buttons, so they match the design in light and dark. */
+.tick {
+  appearance: none;
+  background-color: var(--card);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border: 2px solid var(--control);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 120ms, border-color 120ms;
+}
+
+.tick-round {
+  border-radius: 9999px;
+}
+
+.tick:checked {
+  background-color: var(--action);
+  background-image: var(--tick-mark);
+  border-color: var(--action);
+}
+
+.tick-round:checked {
+  background-image: var(--dot-mark);
+}
+
+@media (forced-colors: active) {
+  .tick {
+    appearance: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

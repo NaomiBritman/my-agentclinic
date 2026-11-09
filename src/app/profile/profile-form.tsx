@@ -3,6 +3,14 @@
 import { useActionState } from "react";
 
 import {
+  buttonClasses,
+  fieldClasses,
+  FormMessage,
+  helpClasses,
+  labelClasses,
+  Notice,
+} from "@/components/ui";
+import {
   FITNESS_LEVELS,
   GOALS,
   type ProfileField,
@@ -11,9 +19,6 @@ import {
 import { WORDING } from "@/lib/wording";
 
 import { saveProfileAction, type ProfileFormState } from "./actions";
-
-const fieldClasses =
-  "mt-1 w-full rounded-md border border-foreground/30 bg-background px-3 py-2 text-base";
 
 function FieldError({
   field,
@@ -24,9 +29,9 @@ function FieldError({
 }) {
   const error = state.errors[field];
   return error ? (
-    <p id={`${field}-error`} role="alert" className="mt-1 font-medium">
+    <FormMessage tone="error" id={`${field}-error`}>
       {error}
-    </p>
+    </FormMessage>
   ) : null;
 }
 
@@ -43,7 +48,7 @@ function NumberField({
 }) {
   return (
     <div>
-      <label htmlFor={field} className="block font-medium">
+      <label htmlFor={field} className={labelClasses}>
         {label}
       </label>
       {/* A text input, so the browser adds no minimum, maximum or step. */}
@@ -77,7 +82,7 @@ function ChoiceField({
 }) {
   return (
     <div>
-      <label htmlFor={field} className="block font-medium">
+      <label htmlFor={field} className={labelClasses}>
         {label}
       </label>
       {/* The key restores the choice after React resets the form. */}
@@ -124,16 +129,19 @@ function AnswerField({
       aria-describedby={state.errors[field] ? `${field}-error` : undefined}
     >
       <legend className="font-medium">{question}</legend>
-      <div className="mt-1 flex gap-6">
+      <div className="mt-2 flex gap-3">
         {options.map((option) => (
-          <label key={option.value} className="flex items-center gap-2 py-1">
+          <label
+            key={option.value}
+            className="flex min-h-11 min-w-24 cursor-pointer items-center gap-2 rounded-xl border border-control px-4 py-2 transition-colors hover:bg-chip-teal has-[:checked]:border-action has-[:checked]:bg-chip-teal has-[:checked]:font-semibold"
+          >
             <input
               type="radio"
               name={field}
               value={option.value}
               required
               defaultChecked={state.values[field] === option.value}
-              className="size-4"
+              className="tick tick-round size-5 shrink-0"
             />
             {option.label}
           </label>
@@ -159,69 +167,67 @@ export function ProfileForm({
   });
 
   return (
-    <form action={formAction} className="mt-6 space-y-4">
-      <NumberField
-        field="age"
-        label={WORDING.profile.ageLabel}
-        inputMode="numeric"
-        state={state}
-      />
-      <NumberField
-        field="heightCm"
-        label={WORDING.profile.heightLabel}
-        inputMode="decimal"
-        state={state}
-      />
-      <NumberField
-        field="weightKg"
-        label={WORDING.profile.weightLabel}
-        inputMode="decimal"
-        state={state}
-      />
-      <ChoiceField
-        field="fitnessLevel"
-        label={WORDING.profile.fitnessLevelLabel}
-        options={FITNESS_LEVELS.map((value) => ({
-          value,
-          label: WORDING.profile.fitnessLevels[value],
-        }))}
-        state={state}
-      />
-      <ChoiceField
-        field="goal"
-        label={WORDING.profile.goalLabel}
-        options={GOALS.map((value) => ({
-          value,
-          label: WORDING.profile.goals[value],
-        }))}
-        state={state}
-      />
-      <p className="opacity-80">{WORDING.profile.goalNote}</p>
-      <AnswerField
-        field="eatingDisorderAnswer"
-        question={WORDING.eligibility.eatingDisorderQuestion}
-        state={state}
-      />
-      <AnswerField
-        field="medicalConditionAnswer"
-        question={WORDING.eligibility.medicalConditionQuestion}
-        state={state}
-      />
+    <form action={formAction} className="space-y-6">
+      <div className="grid gap-4 sm:grid-cols-3">
+        <NumberField
+          field="age"
+          label={WORDING.profile.ageLabel}
+          inputMode="numeric"
+          state={state}
+        />
+        <NumberField
+          field="heightCm"
+          label={WORDING.profile.heightLabel}
+          inputMode="decimal"
+          state={state}
+        />
+        <NumberField
+          field="weightKg"
+          label={WORDING.profile.weightLabel}
+          inputMode="decimal"
+          state={state}
+        />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <ChoiceField
+          field="fitnessLevel"
+          label={WORDING.profile.fitnessLevelLabel}
+          options={FITNESS_LEVELS.map((value) => ({
+            value,
+            label: WORDING.profile.fitnessLevels[value],
+          }))}
+          state={state}
+        />
+        <ChoiceField
+          field="goal"
+          label={WORDING.profile.goalLabel}
+          options={GOALS.map((value) => ({
+            value,
+            label: WORDING.profile.goals[value],
+          }))}
+          state={state}
+        />
+      </div>
+      <p className={helpClasses}>{WORDING.profile.goalNote}</p>
+      <div className="space-y-5 border-t border-line pt-5">
+        <AnswerField
+          field="eatingDisorderAnswer"
+          question={WORDING.eligibility.eatingDisorderQuestion}
+          state={state}
+        />
+        <AnswerField
+          field="medicalConditionAnswer"
+          question={WORDING.eligibility.medicalConditionQuestion}
+          state={state}
+        />
+      </div>
       {state.eligibilityMessage ? (
-        <p role="status" className="font-medium">
-          {state.eligibilityMessage}
-        </p>
+        <Notice>{state.eligibilityMessage}</Notice>
       ) : null}
       {state.saved ? (
-        <p role="status" className="font-medium">
-          {WORDING.profile.saved}
-        </p>
+        <FormMessage tone="done">{WORDING.profile.saved}</FormMessage>
       ) : null}
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-md bg-foreground px-4 py-2 font-medium text-background disabled:opacity-60 sm:w-auto"
-      >
+      <button type="submit" disabled={pending} className={buttonClasses}>
         {WORDING.profile.saveButton}
       </button>
     </form>

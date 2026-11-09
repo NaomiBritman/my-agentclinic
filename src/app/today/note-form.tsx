@@ -2,6 +2,12 @@
 
 import { useActionState } from "react";
 
+import {
+  buttonClasses,
+  fieldClasses,
+  FormMessage,
+  helpClasses,
+} from "@/components/ui";
 import { WORDING } from "@/lib/wording";
 
 import { saveNoteAction } from "./actions";
@@ -20,11 +26,11 @@ export function NoteForm({
   });
 
   return (
-    <form action={formAction} className="mt-8">
-      <label htmlFor="note" className="block font-medium">
+    <form action={formAction}>
+      <label htmlFor="note" className="block text-xl font-semibold">
         {WORDING.today.noteLabel}
       </label>
-      <p id="note-help" className="mt-1 text-sm opacity-80">
+      <p id="note-help" className={helpClasses}>
         {WORDING.today.noteHelp}
       </p>
       <textarea
@@ -34,23 +40,15 @@ export function NoteForm({
         maxLength={maxLength}
         defaultValue={state.text}
         aria-describedby="note-help"
-        className="mt-2 w-full rounded-md border border-foreground/30 bg-background px-3 py-2 text-base"
+        className={`${fieldClasses} mt-3`}
       />
       {state.message ? (
-        <p role="alert" className="mt-2 font-medium">
-          {state.message}
-        </p>
+        <FormMessage tone="error">{state.message}</FormMessage>
       ) : null}
       {state.saved ? (
-        <p role="status" className="mt-2 font-medium">
-          {WORDING.today.noteSaved}
-        </p>
+        <FormMessage tone="done">{WORDING.today.noteSaved}</FormMessage>
       ) : null}
-      <button
-        type="submit"
-        disabled={pending}
-        className="mt-3 w-full rounded-md bg-foreground px-4 py-2 font-medium text-background disabled:opacity-60 sm:w-auto"
-      >
+      <button type="submit" disabled={pending} className={`${buttonClasses} mt-3`}>
         {WORDING.today.noteSaveButton}
       </button>
     </form>
