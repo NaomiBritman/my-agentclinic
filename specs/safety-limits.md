@@ -16,6 +16,7 @@ A source of "Owner decision" means the project owner set the value, and it doesn
 | Strength, Intermediate | 3 to 4 days per week | ACSM 2009 |
 | Strength, Experienced | 4 to 5 days per week | ACSM 2009 |
 | Load increase | At most 5% per week, and only after the current load is done with 1 to 2 extra repetitions | Owner decision (background: ACSM 2-10%) |
+| Beginner first week, aerobic | At most 150 moderate minutes. With the 150 minimum above, this means exactly 150 | Owner decision |
 | Aerobic weekly increase | At most 10% per week, and never past the aerobic cap | Owner decision |
 | No-load exercise weekly increase | At most 2 extra repetitions per set | Owner decision |
 
@@ -26,7 +27,17 @@ A source of "Owner decision" means the project owner set the value, and it doesn
 | Weight loss goal | At most 0.9 kg per week | CDC |
 | Menus | Never below 1,500 kcal per day | Owner decision |
 
-Phase 15 has no daily targets beyond these approved limits.
+Phase 15 has no daily targets beyond these approved limits. The site enforces the 1,500 kcal minimum in code and doesn't show the figure, because a minimum shown as a target could read as a number to aim for (owner decision).
+
+### How these are checked in test mode
+
+**Generated menus are not safe for real use.** These checks are weak, and stronger checks are required before any real person's details are used:
+
+| Check | How it works | Why it is weak |
+| --- | --- | --- |
+| 1,500 kcal minimum | Code adds up the calories Gemini states for each day | The figures are Gemini's own, and there is no food database to check them |
+| 0.9 kg per week | Gemini states the expected weekly loss, and code refuses a missing or higher number (owner decision) | The number is Gemini's own estimate, and no formula is approved |
+| Allergies and restrictions | Code looks for built-in words to avoid in the ingredient names | A word match can miss other names for a food, and can't prove a menu is safe |
 
 ## Goal eligibility (Phase 9)
 
@@ -65,9 +76,37 @@ An under-18 profile still can't be saved, and it keeps its existing wording. The
 
 The Gemini API Additional Terms (effective March 23, 2026) are the reason for this rule. They say "Do not submit sensitive, confidential, or personal information to the Unpaid Services".
 
+## Test data (Phases 10, 11 and 14)
+
+Approved by the project owner on 2026-11-09. All values in this section are owner decisions, with no health source. They describe no real person.
+
+### Made-up test profiles
+
+| Key | Age | Height | Weight | Level | Goal | Allergies | Dietary restrictions |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `test-a` | 40 | 170 cm | 80 kg | Beginner | Weight loss | Peanuts | None |
+| `test-b` | 30 | 165 cm | 62 kg | Intermediate | Toning | None | Vegetarian |
+| `test-c` | 25 | 180 cm | 75 kg | Experienced | Muscle building | None | None |
+
+### Exercise catalog and starting amounts
+
+| Exercise | Level | Type | Starting amount |
+| --- | --- | --- | --- |
+| Brisk walking | All | Aerobic, moderate | Minutes chosen within the aerobic limits |
+| Easy cycling | All | Aerobic, moderate | Minutes chosen within the aerobic limits |
+| Wall push-ups | Beginner | No load | 2 sets of 8 repetitions |
+| Chair squats | Beginner | No load | 2 sets of 8 repetitions |
+| Glute bridges | Beginner | No load | 2 sets of 8 repetitions |
+| Knee push-ups | Intermediate | No load | 3 sets of 8 repetitions |
+| Goblet squats | Intermediate | Load | 3 sets of 8 repetitions at 6 kg |
+| Dumbbell rows | Intermediate | Load | 3 sets of 8 repetitions at 6 kg |
+| Push-ups | Experienced | No load | 3 sets of 10 repetitions |
+| Goblet squats | Experienced | Load | 3 sets of 8 repetitions at 12 kg |
+| Dumbbell rows | Experienced | Load | 3 sets of 8 repetitions at 12 kg |
+
 ## Open items
 
 These don't change what is approved above.
 
-1. **Provider for real people:** a paid tier or a local model still needs to be chosen. Until then, no real person gets a personal AI plan or menu.
+1. **Provider and stronger checks for real people:** a paid tier or a local model still needs to be chosen, and stronger calorie, weight loss and allergy checks are required. Until both are done, no real person's details are used and no real person gets a personal AI plan or menu.
 2. **Tracking generated plans (Phases 12 and 15):** `/today` doesn't track generated plans, so holding progression after missed days and comparing tracked meals with targets wait for the provider for real people.

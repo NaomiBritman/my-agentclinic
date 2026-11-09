@@ -4,13 +4,14 @@ High-level implementation order, in very small phases. Each phase should leave t
 
 ## Required decisions
 
-The first four were approved by the project owner on 2026-11-09, and the values are in [safety-limits.md](safety-limits.md). Each limit value must come from reliable health sources or a labeled owner decision, approved by the project owner, and no values may be invented.
+The first four were approved by the project owner on 2026-11-09, the last two are still open, and the values are in [safety-limits.md](safety-limits.md). Each limit value must come from reliable health sources or a labeled owner decision, approved by the project owner, and no values may be invented.
 
 - [x] **Exercise limits:** values and sources approved, including how much difficulty can rise each week. Unblocks Phase 9.
 - [x] **Goal eligibility:** rules and sources approved for when a goal such as weight loss can't be offered based on a person's details. Unblocks Phase 9.
 - [x] **AI provider:** chosen by the project owner, within the requirements in [tech-stack.md](tech-stack.md). Unblocks Phase 10.
 - [x] **Nutrition limits:** values and sources approved for menus and targets. Unblocks Phase 13.
 - [ ] **AI provider for real people:** a paid tier or a local model, chosen by the project owner. **No real person's details may be sent, and no real person gets a personal AI plan or menu, until this is done.**
+- [ ] **Stronger menu checks:** the calorie, weight loss and allergy checks rely on Gemini's own figures or word matching, so generated menus are not safe for real use (see [safety-limits.md](safety-limits.md)). **Stronger checks are required before any real person's details are used.**
 
 Phases 1–8 are complete, and Phases 9, 10 and 13 are unblocked. Phases 11, 12, 14 and 15 still depend on the phases before them, so no AI plan or menu can reach anyone until the limits covering it are implemented. Open items are listed in [safety-limits.md](safety-limits.md).
 
