@@ -27,7 +27,7 @@ Adults of any fitness level, from beginners to experienced exercisers, with a go
 - **Several local accounts:** each person has their own login and sees only their own data.
 - **Local only:** the site runs on this computer and can't be reached from other devices.
 - **No food database:** menus come from the AI agent, and off-menu food is a simple note.
-- **AI test mode:** for now, AI plans and menus are created only from built-in made-up test profiles and appear on a separate test plans page. Daily tracking keeps using the sample lists.
+- **AI test mode:** for now, AI plans and menus are created only from built-in made-up test profiles, as a demonstration and not a plan to follow. A person chooses a made-up profile, and the daily view shows that day of the plan to track, with sample lists when no plan can be shown.
 
 ## Safety principles
 

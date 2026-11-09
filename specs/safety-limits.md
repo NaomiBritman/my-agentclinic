@@ -27,7 +27,7 @@ A source of "Owner decision" means the project owner set the value, and it doesn
 | Weight loss goal | At most 0.9 kg per week | CDC |
 | Menus | Never below 1,500 kcal per day | Owner decision |
 
-Phase 15 has no daily targets beyond these approved limits. The site enforces the 1,500 kcal minimum in code and doesn't show the figure, because a minimum shown as a target could read as a number to aim for (owner decision).
+Phase 15 has no daily targets beyond these approved limits. The site enforces the 1,500 kcal minimum in code and doesn't show that figure, because a minimum shown could read as a number to aim for. Generated plans show Gemini's estimated calories and portions, each labeled as a Gemini estimate and never as a target (owner decisions).
 
 ### How these are checked in test mode
 
@@ -63,18 +63,28 @@ For a BMI under 18.5, the weight loss goal shows this message as written, and ot
 
 > My Fit Plan can't create a weight loss plan for you. A health professional can help you find what suits you.
 
-The test plans page follows the same rules. It is hidden from anyone who answered yes to either question, and weight loss test plans are hidden when the person's BMI is under 18.5.
+The test plans page and generated plans on the daily view follow the same rules. They are hidden from anyone who answered yes to either question, and weight loss test plans are hidden when the person's BMI is under 18.5.
 
 An under-18 profile still can't be saved, and it keeps its existing wording. The answers to both questions are never sent to the AI provider.
 
 ## AI data rules (Phase 10)
 
 - **Test profiles only:** generation uses only built-in made-up test profiles, and never a saved profile, until the project owner chooses a paid tier or a local model.
-- **Separate page:** generated plans appear on a separate test plans page, and `/today` daily tracking keeps using the sample lists.
+- **Flow:** a person chooses a built-in made-up profile on the test plans page, Gemini builds a one-month plan from that profile and its goal, and `/today` shows what to do that day, with ticks saved per day. Sample lists remain when no plan can be shown.
 - **Told first:** before generating, the site shows this notice as written: "Test mode: this plan is created from a made-up sample profile. Your saved details are not sent."
+- **Demonstration notice:** before generating and on every day of the plan, the site shows this notice as written: "Demonstration only: this isn't a plan to follow. It was built for a made-up person, not for you."
 - **Details that may be sent:** the test profile's age, height, weight, fitness level, goal, allergies and dietary restrictions.
 
 The Gemini API Additional Terms (effective March 23, 2026) are the reason for this rule. They say "Do not submit sensitive, confidential, or personal information to the Unpaid Services".
+
+## Month plans (Phases 11, 12 and 14)
+
+All of these are owner decisions, and none of them loosens a limit above.
+
+- **Shape:** four weeks, or 28 days, with a seven-day menu that repeats each week.
+- **Load:** the generated plan holds loads at the starting amount. A load rises by at most 5% from the next week, and only after the person marks that exercise as done with 1 to 2 extra repetitions.
+- **Weeks with no exercise ticked:** the next week repeats the same amounts, so each rise is still at most one step.
+- **Checks:** every week and menu day must pass the limits, or nothing is saved or shown.
 
 ## Test data (Phases 10, 11 and 14)
 
@@ -104,9 +114,18 @@ Approved by the project owner on 2026-11-09. All values in this section are owne
 | Goblet squats | Experienced | Load | 3 sets of 8 repetitions at 12 kg |
 | Dumbbell rows | Experienced | Load | 3 sets of 8 repetitions at 12 kg |
 
+### Words to avoid
+
+Approved by the project owner on 2026-11-09. A menu is refused if a meal or ingredient name contains one of these. A word match can't prove that a menu is safe.
+
+| Profile | Words |
+| --- | --- |
+| `test-a` | peanut, groundnut, arachis, satay, mixed nuts, nut butter |
+| `test-b` | beef, pork, ham, bacon, lamb, mutton, veal, chicken, turkey, duck, fish, salmon, tuna, cod, anchovy, anchovies, sardine, shrimp, prawn, crab, lobster, gelatin, gelatine, meat, sausage, salami, pepperoni, prosciutto, squid, mussel, oyster, clam |
+
 ## Open items
 
 These don't change what is approved above.
 
 1. **Provider and stronger checks for real people:** a paid tier or a local model still needs to be chosen, and stronger calorie, weight loss and allergy checks are required. Until both are done, no real person's details are used and no real person gets a personal AI plan or menu.
-2. **Tracking generated plans (Phases 12 and 15):** `/today` doesn't track generated plans, so holding progression after missed days and comparing tracked meals with targets wait for the provider for real people.
+2. **Comparing meals with targets (Phase 15):** no comparison is shown, and this waits for the provider for real people.

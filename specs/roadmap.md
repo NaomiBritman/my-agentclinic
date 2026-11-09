@@ -80,6 +80,14 @@ Completed under the earlier project name.
 - [x] Implement the approved exercise limits and goal eligibility rules as a standalone module.
 - [x] Add tests showing that plans can't exceed the limits, and that ineligible goals are refused.
 
+## Site redesign
+
+Done on the same branch as Phases 9–15, before Phase 10.
+
+- [ ] Add the teal and coral palette in light and dark, with contrast tests.
+- [ ] Build shared components, and use them on every page.
+- [ ] Use icons and color for character, with no photos or illustrations of people.
+
 ## Phase 10: AI agent connection
 
 **Unblocked: the AI provider is chosen (see [tech-stack.md](tech-stack.md)).**
@@ -88,21 +96,21 @@ Completed under the earlier project name.
 - [ ] Add built-in made-up test profiles, and make sure generation never reads a saved profile.
 - [ ] Define the structured output format.
 - [ ] Add a check that shows nothing to the person when output is invalid.
-- [ ] Show the approved test mode notice before generating.
+- [ ] Show the approved test mode and demonstration notices before generating, and a loading state while a plan is built.
 
 ## Phase 11: AI exercise plan
 
 - [ ] Add an exercise catalog with difficulty levels, and allow plans to use only those exercises.
-- [ ] Generate a first week at moderate intensity from a built-in test profile and its goal, and check it against the limits.
+- [ ] Let a person choose a built-in test profile, then generate a four-week plan at moderate intensity from that profile and its goal, and check every week against the limits.
 - [ ] Say neutrally when no plan can be produced within the limits.
-- [ ] Show the generated plan on a separate test plans page, and keep the sample exercise list on `/today`.
-- [ ] Hide the test plans page from anyone who answered yes to either eligibility question, and hide weight loss test plans when the person's BMI is under 18.5.
+- [ ] Show that day's exercises from the plan on `/today`, with minutes or sets and ticks saved per day, and keep the sample exercise list for when no plan can be shown.
+- [ ] Hide the test plans page and generated plans from anyone who answered yes to either eligibility question, and hide weight loss test plans when the person's BMI is under 18.5.
 
 ## Phase 12: Weekly progression
 
-- [ ] Generate the next week at a higher difficulty, within the limits.
-- [ ] Show the test profile's current week and how difficulty has changed on the test plans page.
-- [ ] Hold or adjust progression when the person has missed days. This waits for the AI provider for real people, because `/today` doesn't track generated plans.
+- [ ] Raise difficulty from week to week within the limits, with load rising only after the person marks it.
+- [ ] Show the current week and how difficulty has changed on the daily view.
+- [ ] Hold progression when no exercise was ticked in a week.
 
 ## Phase 13: Nutrition limits
 
@@ -114,15 +122,15 @@ Completed under the earlier project name.
 ## Phase 14: AI menu
 
 - [ ] Give each built-in test profile made-up allergies and dietary restrictions, and use them when generating a menu.
-- [ ] Generate a menu from a built-in test profile and its goal, and check it against the limits and restrictions.
+- [ ] Generate a seven-day menu that repeats each week, from a built-in test profile and its goal, and check it against the limits and restrictions.
 - [ ] Say that AI menus can contain mistakes, and that people with allergies should check ingredients.
 - [ ] Say neutrally when no menu can be produced within the limits.
-- [ ] Show the generated menu on the test plans page, and keep the sample menu on `/today`.
+- [ ] Show that day's meals on `/today`, with portions and estimated calories labeled as Gemini estimates and ticks saved per day, and keep the sample menu for when no plan can be shown.
 
 ## Phase 15: Menu targets
 
-- [ ] Show daily targets only from the approved limits, with no others.
-- [ ] Compare tracked meals with those targets in neutral wording. This waits for the AI provider for real people, because `/today` doesn't track generated plans.
+- [ ] Enforce the approved limits in code, and show no daily target. Estimated calories are never shown as a target.
+- [ ] Compare tracked meals with targets in neutral wording. This waits for the AI provider for real people, and no comparison is shown until then.
 
 ## Phase 16: Polish
 
