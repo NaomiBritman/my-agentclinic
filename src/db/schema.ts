@@ -91,6 +91,20 @@ export const profile = sqliteTable("profile", {
   updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
 });
 
+// One active demonstration plan per account, built from a made-up test profile.
+// It holds no details about the person. The plans are stored as checked JSON.
+export const testPlan = sqliteTable("test_plan", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => user.id, { onDelete: "cascade" }),
+  id: text("id").notNull(),
+  testProfileKey: text("test_profile_key").notNull(),
+  startDate: text("start_date").notNull(),
+  exercise: text("exercise").notNull(),
+  menu: text("menu").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+});
+
 // Dates are this computer's local date, as YYYY-MM-DD. Each mark keeps the
 // item's name, so history stays correct if the lists change later.
 export const trackingMark = sqliteTable(

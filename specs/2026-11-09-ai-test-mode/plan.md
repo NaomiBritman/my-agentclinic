@@ -41,7 +41,7 @@ Task groups 1 to 3 and Milestone 1 are complete and committed (`24d7aad`): the a
 5. Define the structured formats for the four-week exercise plan and the seven-day menu.
 6. Add the month checks: week one, weeks two to four, loads held, every menu day and words to avoid.
 7. Add the three proofs in [validation.md](validation.md) that no saved profile can be sent.
-8. Test every failure in the requirements, and confirm that none of them retries or logs anything.
+8. Test every failure in the requirements, and confirm that only a 503 retries, and that none of them logs anything.
 
 ## 8. Choosing and building (Phases 10 and 11)
 

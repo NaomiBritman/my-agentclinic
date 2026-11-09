@@ -26,6 +26,7 @@ export const WORDING = {
     today: "Today",
     history: "History",
     profile: "Profile",
+    testPlans: "Test plans",
   },
   profile: {
     heading: "Your profile",
@@ -83,6 +84,32 @@ export const WORDING = {
     noteTooLong: "This note is too long, so it wasn't saved.",
     noteSaveButton: "Save note",
     noteSaved: "Your note is saved.",
+  },
+  testPlans: {
+    heading: "Test plans",
+    testModeNotice:
+      "Test mode: this plan is created from a made-up sample profile. Your saved details are not sent.",
+    demonstrationNotice:
+      "Demonstration only: this isn't a plan to follow. It was built for a made-up person, not for you.",
+    profileLabel: "Made-up profile",
+    allergiesLabel: "Allergies",
+    restrictionsLabel: "Dietary restrictions",
+    none: "None",
+    buildButton: "Build a one-month plan",
+    loading: "Building the demonstration month. This can take a minute or two.",
+    noPlanProduced:
+      "No plan could be produced within the safety limits, so nothing is shown. A health professional can help you find what suits you.",
+    geminiBusy:
+      "Gemini is busy right now, so no plan was built. Please try again later.",
+    geminiUnreachable:
+      "Gemini couldn't be reached, so no plan was built. Please try again later.",
+    currentHeading: "Current demonstration plan",
+    startedLabel: "Started",
+    weekLabel: "Week",
+    startOver: "Start over",
+    startOverQuestion: "Remove this plan and start over?",
+    startOverConfirm: "Yes, remove it",
+    startOverCancel: "Keep this plan",
   },
   notFound: {
     heading: "This page doesn't exist",

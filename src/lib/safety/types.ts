@@ -50,10 +50,20 @@ export type ExerciseWeek = {
   days: ExerciseDay[];
 };
 
+export type ExerciseMonth = {
+  weeks: ExerciseWeek[];
+};
+
+export type MenuIngredient = {
+  name: string;
+  /** Gemini's estimate, such as "half a cup". */
+  portion: string;
+};
+
 export type MenuMeal = {
   name: string;
   calories: number;
-  ingredients: string[];
+  ingredients: MenuIngredient[];
 };
 
 export type MenuDay = {

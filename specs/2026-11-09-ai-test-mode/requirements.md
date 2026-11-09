@@ -130,19 +130,22 @@ Supporting work:
 12. `/test-plans` shows the test mode notice and the demonstration notice, word for word, above the profiles.
 13. Each available profile appears as a card showing its made-up details, labeled as made-up, with a button to build a plan.
 14. Pressing the button shows a loading state straight away, with a status message for screen readers, the button disabled and a second press ignored. The server also refuses a second build for the same account while one is running.
-15. A build is two Gemini requests: a four-week exercise plan and a seven-day menu. Both must pass every check, or nothing is saved or shown. The person then sees the neutral message and can press the button again.
-16. Nothing retries automatically, which protects the free tier quota. Each request stops after two minutes.
-17. After a build, the person goes to `/today`, and today becomes day one of the plan.
+15. A build is two Gemini requests: a four-week exercise plan and a seven-day menu. Both must pass every check, or nothing is saved or shown. The person then sees one of the neutral messages in requirement 24, and can press the button again.
+16. Each request stops after two minutes. Only an HTTP 503 from Gemini is retried, at most twice per build in total, with a 20-second wait before each retry, so a build sends at most four requests. Nothing else is retried, including timeouts and safety rule failures, which protects the free tier quota.
+17. After a build, the person goes to `/today`, and today becomes day one of the plan. Until the daily view exists at Milestone 4, the person goes to the plan's summary on `/test-plans` instead.
 18. An account has one active plan. Start over asks for confirmation, then removes the active plan. Past ticks stay in `/history`.
 
 ### AI connection (Phase 10)
 
 19. Gemini is called only on the server, with the key read only from `.env` as `GEMINI_API_KEY`. `.env.example` lists the name with an empty value. The project owner adds the key to `.env` themselves, and it is never pasted into a chat.
-20. The model is a Flash model available on the free tier, set by `GEMINI_MODEL` in `.env`. On 2026-11-09 that is `gemini-3.8-flash`.
+20. The model is a Flash model available on the free tier, set by `GEMINI_MODEL` in `.env`. The project owner uses `gemini-3.6-flash` for now, because it answered their short test request while the other model names they tried didn't work.
 21. Generation functions take a test profile key, not profile values, and look the profile up from the built-in list. Their code can't import profile, database or session modules.
 22. A request contains only the test profile's age, height, weight, fitness level, goal, allergies and dietary restrictions, along with the catalog, the limits and the output format.
 23. The agent returns structured data in a defined format. All of its output is untrusted until it passes the safety module. Text fields have length limits, and unknown fields are refused.
-24. A missing key, network failure, timeout, unknown field, invalid format or failed limit shows nothing generated, only the neutral message.
+24. Any failure shows nothing generated, and saves nothing, with one of three neutral messages:
+    - **A failed safety rule:** the no plan produced message. This message is used for nothing else.
+    - **A 503 that remains after the retries, a timeout or a 504:** the Gemini busy message.
+    - **Anything else:** the Gemini couldn't be reached message. This covers a missing key, an invalid key, permission, model not found, quota, other server errors, network failures and output in an unusable format.
 25. Prompts, responses, plans and keys are never written to logs.
 
 ### Plan checks (Phases 9, 12–14)
@@ -201,6 +204,8 @@ These messages are approved, and are used as written:
 | BMI under 18.5, weight loss | My Fit Plan can't create a weight loss plan for you. A health professional can help you find what suits you. |
 | Test mode notice | Test mode: this plan is created from a made-up sample profile. Your saved details are not sent. |
 | Demonstration notice | Demonstration only: this isn't a plan to follow. It was built for a made-up person, not for you. |
+| Gemini busy | Gemini is busy right now, so no plan was built. Please try again later. |
+| Gemini couldn't be reached | Gemini couldn't be reached, so no plan was built. Please try again later. |
 | Home page sentence | Your month of movement and meals, one day at a time. |
 | Page not found | This page doesn't exist / Back to the home page |
 

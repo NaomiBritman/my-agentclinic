@@ -36,7 +36,8 @@ Each command must exit successfully, starting from a clean install, with no dev 
 | Allergies and restrictions | A menu with a word to avoid in a meal or ingredient name is refused |
 | Eligibility | A yes to either question refuses all goals, BMI just under 18.5 refuses weight loss only, BMI of exactly 18.5 is allowed, and unanswered questions leave plans unavailable |
 | Test profiles | Every built-in test profile meets the eligibility rules, and every catalog amount passes the checks |
-| Invalid output | Bad JSON, unknown fields, wrong types, overlong text, a failed limit, a timeout and a missing key all show nothing generated, save nothing and retry nothing |
+| Failure messages | A failed safety rule, and only that, shows the no plan produced message. A missing key, 400, 403, 404, 429, 500, a network failure and unusable output show the Gemini couldn't be reached message. All of these show nothing generated, save nothing and retry nothing |
+| Gemini busy | A 503 is retried at most twice per build, with a wait first, and can still succeed. A remaining 503, a timeout or a 504 shows only the busy message and saves nothing. A timeout, a 504, other HTTP errors and safety rule failures are never retried |
 | Building | A second build for the same account is refused while one is running, and Start over removes only that account's plan |
 | Access | Each situation in the requirements gives the right result, through both pages and actions |
 | Hidden plans | With a yes answer or a hidden goal, an active plan isn't shown and accepts no ticks, and it returns if the person becomes eligible again |
@@ -73,7 +74,7 @@ The existing test is extended to all new text, and must still catch planted exam
 - **Health measures:** the existing list stays refused, other than the unit labels shown with plan amounts, which are kept in one named list.
 - **Rewards, pressure and judgments:** the existing lists stay refused.
 - **Targets:** target, budget, allowance and minimum are refused in all site text.
-- **Approved text:** the six approved messages must match [safety-limits.md](../safety-limits.md) exactly.
+- **Approved text:** the eight approved messages must match [safety-limits.md](../safety-limits.md) exactly.
 
 ## Accessibility scan
 
@@ -123,17 +124,18 @@ The project owner uses a modern browser, with their own Gemini key from Mileston
 
 ### Milestone 3: choosing and building (Phases 10 and 11)
 
-- [ ] `/test-plans` shows both notices word for word, above the profiles.
-- [ ] The three made-up profiles appear, labeled as made-up.
-- [ ] Pressing build shows the loading state straight away, and the button can't be pressed twice.
-- [ ] For each of the three profiles, a live build produces a complete valid month at least once, pressing the button again if needed. If one keeps failing, stop and ask.
-- [ ] A refused build shows only the neutral message, and never invalid output.
-- [ ] Removing the key shows the neutral message, and nothing else.
-- [ ] Start over asks for confirmation, then removes the plan.
-- [ ] With a yes answer, the navigation link is gone, and opening `/test-plans` directly shows only the exact message.
-- [ ] With a BMI under 18.5, `test-a` is hidden, and the other two profiles are available.
-- [ ] The dev server log shows no typed values, prompts, responses or key.
-- [ ] The page doesn't scroll sideways at either width.
+- [x] `/test-plans` shows both notices word for word, above the profiles.
+- [x] The three made-up profiles appear, labeled as made-up.
+- [x] Pressing build shows the loading state straight away, and the button can't be pressed twice.
+- [x] For each of the three profiles, a live build produces a complete valid month at least once, pressing the button again if needed. If one keeps failing, stop and ask.
+- [x] A refused build shows only one of the three neutral messages, and never invalid output.
+- [x] While Gemini is busy, a build shows only the busy message, not the safety limits message.
+- [x] Removing the key shows the Gemini couldn't be reached message, and nothing else.
+- [x] Start over asks for confirmation, then removes the plan.
+- [x] With a yes answer, the navigation link is gone, and opening `/test-plans` directly shows only the exact message.
+- [x] With a BMI under 18.5, `test-a` is hidden, and the other two profiles are available.
+- [x] The dev server log shows no typed values, prompts, responses or key.
+- [x] The page doesn't scroll sideways at either width.
 
 ### Milestone 4: daily view and ticks (Phases 12, 14 and 15)
 
@@ -209,7 +211,12 @@ Recorded at each milestone.
 
 - **Milestone 2 walkthrough:** on 2026-11-09, the project owner checked all nine walkthrough items at phone and desktop widths, and it passed. The owner then asked for the new home page sentence, card links and restyled tick boxes, and approved the page-not-found wording.
 - **After those changes:** a clean install, lint, type check and 408 tests passed in a separate copy. After one more small fix, lint, type check, 408 tests and a production build with no `.env` passed, and the browser run passed all 207 checks and the Milestone 1 flows all 56, on a throwaway server on port 3100. Axe found no problems.
-- **Test accounts in the real database:** on 2026-11-09, a browser run reached the project owner's own dev server on port 3000, because port 3000 wasn't checked first. It added 5 `@example.com` test accounts with made-up details and 2 ticks to the real database, and changed nothing on the 2 existing accounts. Test scripts now refuse to use port 3000.
+- **Milestone 3 before live Gemini:** on 2026-11-09, in a separate copy with no `.env` or database, clean install, lint, type check, 553 tests and a production build passed. A browser run on port 3100 passed all 241 checks, using the real Gemini SDK against an imitation Gemini server on this computer, with no real key. It confirmed the loading state, one request per failure with no retries, no saved details in any request, and no outside requests from the browser. The redesign checks passed all 207 and the Milestone 1 flows all 56. **Real Gemini hasn't been called yet**, so it isn't proven that real Gemini accepts the output format or produces a valid month.
+- **Milestone 3 walkthrough:** on 2026-11-09, the project owner built a complete valid month live with each of the three made-up profiles, using `gemini-3.6-flash`, checked the rest of the Milestone 3 list at phone and desktop widths, and it passed. The temporary diagnostic was then removed.
+- **Connection and model findings:** on 2026-11-09, the project owner found that their internet filter stopped Node verifying the connection, and fixed that with `NODE_EXTRA_CA_CERTS`. With `gemini-3.6-flash`, a short request returned 200 and a full exercise plan request returned 503, and the other model names they tried returned 404 or didn't work. **A complete month from real Gemini still hasn't been seen.**
+- **Busy message and retries:** on 2026-11-09, in a separate copy with no `.env` or database, clean install, lint, type check, 578 tests and a production build passed. A browser run through the real SDK and an imitation Gemini passed all 22 checks with real waits: repeated 503s made 3 requests over 40 seconds and showed the busy message, one 503 still built a plan, a timeout showed the busy message after two minutes with no retry, and a failed safety rule, bad output, a 429 and a 500 each made one request and showed the safety limits message. The Milestone 3 run passed all 241 checks.
+- **Test accounts in the real database:** on 2026-11-09, a browser run reached the project owner's own dev server on port 3000, because port 3000 wasn't checked first. It added 5 `@example.com` test accounts with made-up details and 2 ticks to the real database, and changed nothing on the 2 existing accounts. Test scripts now refuse to use port 3000. With the project owner's approval, and with their server confirmed stopped, those 5 accounts and their 5 profiles, 5 sessions, 5 login records and 2 ticks were deleted on 2026-11-09, leaving the 2 existing accounts' rows unchanged.
+- **Failure messages:** on 2026-11-09, the project owner approved the busy and couldn't be reached messages. In a separate copy with no `.env` or database, clean install, lint, type check, 592 tests and a production build passed. A browser run through the real SDK and an imitation Gemini passed all 55 checks: failed safety rules showed only the safety limits message, an invalid key, permission error, missing model, 429, 500 and unusable output showed only the couldn't be reached message, and none of those retried. The Milestone 3 run passed all 241 checks, the redesign all 207 and the Milestone 1 flows all 56.
 
 ## Merge
 

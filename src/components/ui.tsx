@@ -17,6 +17,9 @@ const WIDTHS: Record<PageWidth, string> = {
 export const buttonClasses =
   "inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-action px-6 py-2 font-semibold text-action-ink transition-colors hover:bg-action-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto";
 
+export const secondaryButtonClasses =
+  "inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-control bg-card px-6 py-2 font-semibold text-ink transition-colors hover:bg-chip-teal sm:w-auto";
+
 /** For a button that sits on the page band. */
 export const bandButtonClasses =
   "inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-band-ink px-6 py-2 font-semibold text-band-to transition-opacity hover:opacity-90 sm:w-auto";

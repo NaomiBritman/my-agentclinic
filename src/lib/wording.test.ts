@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 
 import { describe, expect, test } from "vitest";
 
+import { PLAN_UNITS } from "./plan-units";
 import { SAMPLE_EXERCISES, SAMPLE_MEALS } from "./samples";
 import { MEDICAL_NOTICE, MISSION_SENTENCE, SITE_NAME } from "./site";
 import { WORDING } from "./wording";
@@ -50,6 +51,7 @@ const CHECKS = {
     "don't break",
     "push harder",
   ),
+  targets: wholeWords("target", "budget", "allowance", "minimum"),
   judgments: wholeWords(
     "well done",
     "great job",
@@ -71,7 +73,12 @@ function hasRefusedNumber(text: string): boolean {
   return /\d/.test(allowed);
 }
 
-function problemsIn(text: string): string[] {
+function problemsIn(rawText: string): string[] {
+  // "A minute or two" describes waiting for the page, not a health measure.
+  const text =
+    rawText === WORDING.testPlans.loading
+      ? rawText.replace("a minute or two", "a while")
+      : rawText;
   const problems = Object.entries(CHECKS)
     .filter(([, pattern]) => pattern.test(text))
     .map(([name]) => name);
@@ -85,6 +92,11 @@ describe("the wording test catches planted examples", () => {
     ["Fewer calories today", "healthMeasures"],
     ["Add more protein", "healthMeasures"],
     ["Do three sets", "healthMeasures"],
+    ["Rest a minute", "healthMeasures"],
+    ["Your daily target", "targets"],
+    ["Your calorie budget", "targets"],
+    ["Today's allowance", "targets"],
+    ["The daily minimum", "targets"],
     ["A seven day streak!", "rewardsAndPressure"],
     ["Your score today", "rewardsAndPressure"],
     ["Keep it up", "rewardsAndPressure"],
@@ -101,6 +113,16 @@ describe("the wording test catches planted examples", () => {
   test("whole words are matched, so similar words are allowed", () => {
     expect(problemsIn("Asset Goodwin Badger Fatigue Reptile")).toEqual([]);
   });
+});
+
+test("health measure words appear only in the named list of unit labels", () => {
+  expect(Object.keys(PLAN_UNITS)).toEqual([
+    "aerobicMinutes",
+    "strengthDays",
+    "heightCm",
+    "weightKg",
+  ]);
+  for (const unit of Object.values(PLAN_UNITS)) expect(unit).not.toMatch(/\d/);
 });
 
 test("the home page uses the approved sentence", () => {
@@ -121,6 +143,10 @@ test.each([
   WORDING.eligibility.medicalConditionQuestion,
   WORDING.eligibility.noPlan,
   WORDING.eligibility.noWeightLossPlan,
+  WORDING.testPlans.testModeNotice,
+  WORDING.testPlans.demonstrationNotice,
+  WORDING.testPlans.geminiBusy,
+  WORDING.testPlans.geminiUnreachable,
 ])("%j matches the approved text exactly", (text) => {
   expect(readFileSync("specs/safety-limits.md", "utf8")).toContain(text);
 });

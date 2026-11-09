@@ -2,6 +2,7 @@ import {
   Activity,
   CalendarCheck,
   ClipboardList,
+  FlaskConical,
   History,
   LogIn,
   LogOut,
@@ -10,7 +11,9 @@ import {
 import Link from "next/link";
 import { Suspense } from "react";
 
+import { getDatabase } from "@/db/database";
 import { getCurrentAccount } from "@/lib/auth-server";
+import { getTestPlanAccess } from "@/lib/plan-access";
 import { SITE_NAME } from "@/lib/site";
 import { WORDING } from "@/lib/wording";
 
@@ -52,6 +55,12 @@ async function AccountNavigation() {
         <ClipboardList aria-hidden className={iconClasses} />
         {WORDING.navigation.profile}
       </NavLink>
+      {getTestPlanAccess(getDatabase(), account.id).status === "available" ? (
+        <NavLink href="/test-plans">
+          <FlaskConical aria-hidden className={iconClasses} />
+          {WORDING.navigation.testPlans}
+        </NavLink>
+      ) : null}
       <form action={logOutAction} className="contents">
         <button type="submit" className={navItemClasses}>
           <LogOut aria-hidden className={iconClasses} />

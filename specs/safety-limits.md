@@ -73,6 +73,7 @@ An under-18 profile still can't be saved, and it keeps its existing wording. The
 - **Flow:** a person chooses a built-in made-up profile on the test plans page, Gemini builds a one-month plan from that profile and its goal, and `/today` shows what to do that day, with ticks saved per day. Sample lists remain when no plan can be shown.
 - **Told first:** before generating, the site shows this notice as written: "Test mode: this plan is created from a made-up sample profile. Your saved details are not sent."
 - **Demonstration notice:** before generating and on every day of the plan, the site shows this notice as written: "Demonstration only: this isn't a plan to follow. It was built for a made-up person, not for you."
+- **When a build stops:** the safety limits message is only for real safety rule failures. While Gemini is overloaded or a request times out, the site shows this message as written: "Gemini is busy right now, so no plan was built. Please try again later." For any other provider or connection failure, including a quota error, an invalid key, a server error, a network error or unusable output, it shows this message as written: "Gemini couldn't be reached, so no plan was built. Please try again later."
 - **Details that may be sent:** the test profile's age, height, weight, fitness level, goal, allergies and dietary restrictions.
 
 The Gemini API Additional Terms (effective March 23, 2026) are the reason for this rule. They say "Do not submit sensitive, confidential, or personal information to the Unpaid Services".

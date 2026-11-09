@@ -92,19 +92,19 @@ Done on the same branch as Phases 9–15, before Phase 10.
 
 **Unblocked: the AI provider is chosen (see [tech-stack.md](tech-stack.md)).**
 
-- [ ] Connect the Gemini API free tier on the server for made-up test profiles only, with the key kept only in `.env`.
-- [ ] Add built-in made-up test profiles, and make sure generation never reads a saved profile.
-- [ ] Define the structured output format.
-- [ ] Add a check that shows nothing to the person when output is invalid.
-- [ ] Show the approved test mode and demonstration notices before generating, and a loading state while a plan is built.
+- [x] Connect the Gemini API free tier on the server for made-up test profiles only, with the key kept only in `.env`.
+- [x] Add built-in made-up test profiles, and make sure generation never reads a saved profile.
+- [x] Define the structured output format.
+- [x] Add a check that shows nothing to the person when output is invalid.
+- [x] Show the approved test mode and demonstration notices before generating, and a loading state while a plan is built.
 
 ## Phase 11: AI exercise plan
 
-- [ ] Add an exercise catalog with difficulty levels, and allow plans to use only those exercises.
-- [ ] Let a person choose a built-in test profile, then generate a four-week plan at moderate intensity from that profile and its goal, and check every week against the limits.
+- [x] Add an exercise catalog with difficulty levels, and allow plans to use only those exercises.
+- [x] Let a person choose a built-in test profile, then generate a four-week plan at moderate intensity from that profile and its goal, and check every week against the limits.
 - [ ] Say neutrally when no plan can be produced within the limits.
 - [ ] Show that day's exercises from the plan on `/today`, with minutes or sets and ticks saved per day, and keep the sample exercise list for when no plan can be shown.
-- [ ] Hide the test plans page and generated plans from anyone who answered yes to either eligibility question, and hide weight loss test plans when the person's BMI is under 18.5.
+- [x] Hide the test plans page and generated plans from anyone who answered yes to either eligibility question, and hide weight loss test plans when the person's BMI is under 18.5.
 
 ## Phase 12: Weekly progression
 
