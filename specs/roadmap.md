@@ -4,14 +4,15 @@ High-level implementation order, in very small phases. Each phase should leave t
 
 ## Required decisions
 
-These block the phases named below. Each limit value must come from reliable health sources that the project owner approves, and no values may be invented.
+The first four were approved by the project owner on 2026-11-09, and the values are in [safety-limits.md](safety-limits.md). Each limit value must come from reliable health sources that the project owner approves, and no values may be invented.
 
-- [ ] **Exercise limits:** values and sources approved, including how much difficulty can rise each week. **Phase 9 cannot start until this is done.**
-- [ ] **Goal eligibility:** rules and sources approved for when a goal such as weight loss can't be offered based on a person's details. **Phase 9 cannot start until this is done.**
-- [ ] **AI provider:** chosen by the project owner, within the requirements in [tech-stack.md](tech-stack.md). **Phase 10 cannot start until this is done.**
-- [ ] **Nutrition limits:** values and sources approved for menus and targets. **Phase 13 cannot start until this is done.**
+- [x] **Exercise limits:** values and sources approved, including how much difficulty can rise each week. Unblocks Phase 9.
+- [x] **Goal eligibility:** rules and sources approved for when a goal such as weight loss can't be offered based on a person's details. Unblocks Phase 9.
+- [x] **AI provider:** chosen by the project owner, within the requirements in [tech-stack.md](tech-stack.md). Unblocks Phase 10.
+- [x] **Nutrition limits:** values and sources approved for menus and targets. Unblocks Phase 13.
+- [ ] **AI provider for real people:** a paid tier or a local model, chosen by the project owner. **No real person's details may be sent, and no real person gets an AI plan or menu, until this is done.**
 
-Phases 1–8 can start now. Phases 10–15 also depend on the blocked phases before them, so no AI plan or menu can reach anyone until the limits covering it are approved.
+Phases 1–8 are complete, and Phases 9, 10 and 13 are unblocked. Phases 11, 12, 14 and 15 still depend on the phases before them, so no AI plan or menu can reach anyone until the limits covering it are implemented. Open items are listed in [safety-limits.md](safety-limits.md).
 
 ## Phase 0: Project setup
 
@@ -72,24 +73,26 @@ Completed under the earlier project name.
 
 ## Phase 9: Exercise and goal limits
 
-**Blocked until the exercise limits and goal eligibility are approved (see required decisions).**
+**Unblocked: the exercise limits and goal eligibility are approved (see [safety-limits.md](safety-limits.md)).**
 
+- [ ] Add the two approved eligibility questions, and show the approved neutral message when no plan can be offered.
 - [ ] Implement the approved exercise limits and goal eligibility rules as a standalone module.
 - [ ] Add tests showing that plans can't exceed the limits, and that ineligible goals are refused.
 
 ## Phase 10: AI agent connection
 
-**Blocked until the AI provider is chosen (see required decisions).**
+**Unblocked: the AI provider is chosen (see [tech-stack.md](tech-stack.md)).**
 
-- [ ] Connect the agent on the server, with any key kept in `.env`.
+- [ ] Connect the Gemini API free tier on the server for made-up test profiles only, with the key kept only in `.env`.
+- [ ] Make sure code stops any real person's details being sent.
 - [ ] Define the structured output format.
 - [ ] Add a check that shows nothing to the person when output is invalid.
-- [ ] Tell people what is sent to the provider if it runs outside this computer.
+- [ ] Before generating, say that only made-up test profiles may be used, and what will be sent to Gemini.
 
 ## Phase 11: AI exercise plan
 
 - [ ] Add an exercise catalog with difficulty levels, and allow plans to use only those exercises.
-- [ ] Generate a first week from the profile and goal, and check it against the limits.
+- [ ] Generate a first week at moderate intensity from the profile and goal, and check it against the limits.
 - [ ] Say neutrally when no plan can be produced within the limits.
 - [ ] Replace the sample exercise list with the generated plan.
 
@@ -101,7 +104,7 @@ Completed under the earlier project name.
 
 ## Phase 13: Nutrition limits
 
-**Blocked until the nutrition limits are approved (see required decisions).**
+**Unblocked: the nutrition limits are approved (see [safety-limits.md](safety-limits.md)).**
 
 - [ ] Add the approved nutrition limits to the safety module.
 - [ ] Add tests showing that menus and targets can't go past the limits.
@@ -116,7 +119,7 @@ Completed under the earlier project name.
 
 ## Phase 15: Menu targets
 
-- [ ] Show personal daily targets, within the approved limits.
+- [ ] Show daily targets only from the approved limits, with no others.
 - [ ] Compare tracked meals with those targets in neutral wording.
 
 ## Phase 16: Polish

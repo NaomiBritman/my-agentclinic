@@ -9,27 +9,28 @@
 | Database | SQLite, through `better-sqlite3` | Simple local setup with no separate database server |
 | Data access | Drizzle ORM | Typed queries and schema migrations; supports moving to Postgres later |
 | Accounts | Better Auth, with email and password, hashed passwords and server-side session checks | Fits a local site with no outside services, and has a Drizzle adapter |
-| AI agent | **Provider not decided** | Required decision before Phase 10 (see the [roadmap](roadmap.md)) |
+| AI agent | Gemini API, free tier, Flash model, for made-up test profiles only | Chosen by the project owner on 2026-11-09; a paid tier or local model must be chosen before any real person's details are sent (see [safety-limits.md](safety-limits.md)) |
 | Styling | Tailwind CSS | Fast to build a responsive interface |
 | Tests | Vitest | Fast TypeScript testing, mainly for plan and safety rules |
 | Linting | ESLint | Comes with the Next.js scaffold and catches common code problems |
 
 ## AI agent requirements
 
-These apply whichever provider is chosen:
+These apply to the chosen provider, and to any later one:
 
-- **Runs on the server.** The browser never calls the AI provider, and any API key stays in `.env`.
+- **Runs on the server.** The browser never calls the AI provider, and the API key is kept only in `.env`.
 - **Structured output.** The agent returns data in a defined format, so code can check it.
 - **Validated in code.** Prompts can guide the agent, but only code enforces the limits. Output is untrusted until it passes the safety module.
 - **Fails closed.** If output is invalid, fails a limit, or the limits it needs aren't approved, nothing is shown to the person.
-- **Minimal data.** The agent receives only the details the plan needs, and never names, emails or passwords.
-- **Clear about data leaving the computer.** If the provider runs outside this computer, people are told before their details are sent, even though the site itself is local.
+- **Test profiles only for now.** No real person's details may be sent until the project owner chooses a paid tier or a local model, and code must enforce this.
+- **Minimal data.** The agent receives only age, height, weight, fitness level, goal, allergies and dietary restrictions, and only those the plan needs. It never receives names, emails, passwords or anything else.
+- **Clear about data leaving the computer.** Gemini runs outside this computer, even though the site itself is local. Before generating, the site says that only made-up test profiles may be used, and what will be sent.
 
 ## Guidelines
 
 - **Follow responsive design.** Every page must work on phone and desktop widths, without horizontal scrolling, using Tailwind CSS's responsive utilities with a mobile-first approach.
 - **Keep safety rules in one place.** Exercise and nutrition limits live in plain TypeScript modules with no UI, database or AI dependencies, so every feature uses the same rules and they are easy to test.
-- **Don't invent limit values.** Code uses only values the project owner has approved, from reliable health sources (see the [roadmap](roadmap.md)).
+- **Don't invent limit values.** Code uses only values the project owner has approved, from reliable health sources (see [safety-limits.md](safety-limits.md)).
 - **Keep tracking separate from the limits.** Checking off exercises and meals must not depend on the safety module, while AI output and targets must go through it.
 - **Enforce limits on the server.** The browser never gets the final say on a plan, menu or target.
 - **Validate input on the server.** This covers all account and profile details.

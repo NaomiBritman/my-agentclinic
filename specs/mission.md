@@ -33,7 +33,7 @@ Adults of any fitness level, from beginners to experienced exercisers, with a go
 These rules take priority over every other goal of the product.
 
 1. **Limits are firm.** Exercise plans, weekly difficulty increases, menus and nutrition targets all have safety limits, and neither users nor the AI agent can override them.
-2. **Limits need approval.** Every limit value must come from reliable health sources approved by the project owner. No values are set yet, and none may be invented.
+2. **Limits need approval.** Every limit value must come from reliable health sources approved by the project owner. The approved values are in [safety-limits.md](safety-limits.md), and no others may be invented.
 3. **No approved limits, no AI output.** People see no AI plan or menu until the limits covering it are approved.
 4. **AI output is checked, not trusted.** The site checks every plan and menu against the limits in code, before anyone sees it. Output that fails is not shown.
 5. **Goals don't override safety.** A goal never loosens a limit. If a request can't be met within the limits, the site doesn't produce a plan for it, says so neutrally, and suggests talking to a qualified health professional.
